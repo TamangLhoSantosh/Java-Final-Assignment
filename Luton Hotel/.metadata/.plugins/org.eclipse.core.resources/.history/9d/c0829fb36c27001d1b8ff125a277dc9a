@@ -1,0 +1,19 @@
+package BusinessLayer;
+
+import Models.Login;
+
+public class BLLogin {
+
+	//declaring variable
+	private Login log;
+
+	public Login getLog() {
+		return log;
+	}
+
+	public void setLog(Login log) {
+		this.log = log;
+	}
+	
+	
+}

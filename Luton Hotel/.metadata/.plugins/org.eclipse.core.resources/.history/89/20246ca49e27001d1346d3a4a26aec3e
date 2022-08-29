@@ -1,0 +1,12 @@
+import FrontendLayer.Main;
+
+public class Execute {
+	public static void main(String[] args) {
+		try {
+			Page window = new Page();
+			window.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

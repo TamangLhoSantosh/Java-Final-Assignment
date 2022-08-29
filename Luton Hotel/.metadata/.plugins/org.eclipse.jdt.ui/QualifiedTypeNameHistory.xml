@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="javax.swing.JPanel"/>
+    <fullyQualifiedTypeName name="javax.swing.JDesktopPane"/>
+    <fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
+    <fullyQualifiedTypeName name="Models.Login"/>
+    <fullyQualifiedTypeName name="DatabaseLayer.DLLogin"/>
+    <fullyQualifiedTypeName name="FrontendLayer.CustomerHome"/>
+    <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+    <fullyQualifiedTypeName name="BusinessLayer.BLLogin"/>
+    <fullyQualifiedTypeName name="FrontendLayer.LoginPage"/>
+</qualifiedTypeNameHistroy>

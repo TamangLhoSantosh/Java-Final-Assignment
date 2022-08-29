@@ -1,0 +1,65 @@
+package BusinessLayer;
+
+import javax.swing.JOptionPane;
+
+import DatabaseLayer.DLLogin;
+import FrontendLayer.LoginPage;
+import Helper.InputException;
+import Models.Login;
+
+public class BLLogin {
+
+	//declaring variable
+	private Login log;
+
+	private BLLogin() {
+	}
+
+	public Login getLog() {
+		return log;
+	}
+
+	public void setLog(Login log) throws Exception{
+		try {
+			if(this.ValidateLogin(log)) {
+				this.log = log;
+			}
+		}catch (Exception ex) {
+			throw ex;
+		}	
+	}
+	
+	public boolean ValidateLogin(Login log) throws InputException {
+		if(log.getEmail() == null || log.getEmail().length()==0){
+			throw new InputException("User email cannot be empty.");
+		}
+		if(log.getPassword() == null || log.getPassword().length()==0){
+			throw new InputException("User password cannot be empty.");
+		}
+		return true;
+	}
+	
+	public Login login(Login log) throws Exception{
+		try {
+			DLLogin dlLogin = new DLLogin();
+			return dlLogin.login(log);
+		}catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	public static void Login(){
+		try {
+			Login log = new Login();
+			log.setEmail(LoginPage.email.getText());
+			char[] pf = LoginPage.password.getPassword();
+			String pass = new String(pf);
+			log.setPassword(pass);
+			BLLogin blLogin = new BLLogin();
+			blLogin.setLog(log);
+			blLogin.login(log);
+		}catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, ex.getMessage());
+		}
+	}
+}

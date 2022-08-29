@@ -1,0 +1,131 @@
+package FrontendLayer;
+
+import java.awt.EventQueue;
+
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
+
+public class CorporateRegister extends JInternalFrame {
+
+	private static final long serialVersionUID = 4L;
+	private JTextField registrationNoText;
+	private JTextField companyNameText;
+	private JTextField contactText;
+	private JTextField addressText;
+	private JTextField discountDiscussedText;
+	private JTextField discountYearText;
+	private JTextField emailText;
+	private JPasswordField passwordText;
+	private JPasswordField confirmPasswordText;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					CorporateRegister frame = new CorporateRegister();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public CorporateRegister() {
+		setClosable(true);
+		setBounds(100, 100, 450, 550);
+		getContentPane().setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel = new JPanel();
+		getContentPane().add(panel, BorderLayout.NORTH);
+		
+		JLabel corporarteRegister = new JLabel("Corporate Register");
+		panel.add(corporarteRegister);
+		
+		JPanel panel_1 = new JPanel();
+		getContentPane().add(panel_1, BorderLayout.CENTER);
+		
+		JLabel registrationNo = new JLabel("Registration No");
+		panel_1.add(registrationNo);
+		
+		JLabel contact = new JLabel("Contact");
+		panel_1.add(contact);
+		
+		JLabel lblNewLabel = new JLabel("Discount Discussed");
+		panel_1.add(lblNewLabel);
+		
+		JLabel companyName = new JLabel("Company Name");
+		panel_1.add(companyName);
+		
+		JLabel address = new JLabel("Address");
+		panel_1.add(address);
+		
+		JLabel discountYear = new JLabel("Discount Year");
+		panel_1.add(discountYear);
+		
+		JLabel email = new JLabel("Email");
+		panel_1.add(email);
+		
+		JLabel password = new JLabel("Password");
+		panel_1.add(password);
+		
+		JLabel confirmPassword = new JLabel("Confirm Password");
+		panel_1.add(confirmPassword);
+		
+		registrationNoText = new JTextField();
+		panel_1.add(registrationNoText);
+		registrationNoText.setColumns(10);
+		
+		companyNameText = new JTextField();
+		panel_1.add(companyNameText);
+		companyNameText.setColumns(10);
+		
+		contactText = new JTextField();
+		panel_1.add(contactText);
+		contactText.setColumns(10);
+		
+		addressText = new JTextField();
+		panel_1.add(addressText);
+		addressText.setColumns(10);
+		
+		discountDiscussedText = new JTextField();
+		panel_1.add(discountDiscussedText);
+		discountDiscussedText.setColumns(10);
+		
+		discountYearText = new JTextField();
+		panel_1.add(discountYearText);
+		discountYearText.setColumns(10);
+		
+		emailText = new JTextField();
+		panel_1.add(emailText);
+		emailText.setColumns(10);
+		
+		passwordText = new JPasswordField();
+		panel_1.add(passwordText);
+		
+		confirmPasswordText = new JPasswordField();
+		panel_1.add(confirmPasswordText);
+		
+		JLabel corporataeRegister = new JLabel("Register");
+		panel_1.add(corporataeRegister);
+		
+		JPanel panel_2 = new JPanel();
+		panel_1.add(panel_2, BorderLayout.SOUTH);
+		
+		JButton btnNewButton = new JButton("Register As Individual");
+		panel_2.add(btnNewButton);
+		
+	}
+
+}

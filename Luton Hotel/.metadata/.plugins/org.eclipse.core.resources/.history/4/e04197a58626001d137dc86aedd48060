@@ -1,0 +1,33 @@
+package FrontendLayer;
+
+import java.awt.EventQueue;
+
+import javax.swing.JInternalFrame;
+
+public class LoginPage extends JInternalFrame {
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					LoginPage frame = new LoginPage();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public LoginPage() {
+		setBounds(100, 100, 450, 300);
+
+	}
+
+}

@@ -1,0 +1,36 @@
+package DatabaseLayer;
+
+import Models.User;
+import Helper.DataConnector;
+import Helper.DatabaseConnector;
+
+import java.sql.statement;
+import java.sql.perparedstatement;
+import java.sql.ResulSet;
+import java.util.ArrayList;
+public class DLUser {
+
+	private User user;
+	private DatabaseConnector db;
+	private Connection connection;
+
+	public DLUser() throws Exception{
+		this.user = new user();
+		try {
+			dbInstance = new DatabaseConnector();
+		}catch(Exception ex) {
+			throw ex;
+		}	
+	}
+	
+
+	public DLUser(User user) throws Exception{
+		this.user = new user();
+		try {
+			dbInstance = new DatabaseConnector();
+		}catch(Exception ex) {
+			throw ex;
+		}	
+	}
+ 
+}

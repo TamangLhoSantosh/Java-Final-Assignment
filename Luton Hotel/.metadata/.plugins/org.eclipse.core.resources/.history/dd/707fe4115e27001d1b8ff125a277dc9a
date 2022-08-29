@@ -1,0 +1,16 @@
+import javax.swing.JDesktopPane;
+
+import FrontendLayer.LoginPage;
+
+public class Execute {
+	public static void main(String[] args) {
+		try {
+			JDesktopPane window = new JDesktopPane();
+			LoginPage login = new LoginPage();
+			window.add(login).setVisible(true);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

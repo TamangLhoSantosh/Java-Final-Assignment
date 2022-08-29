@@ -1,0 +1,180 @@
+package FrontendLayer;
+
+import java.awt.EventQueue;
+
+import javax.swing.JInternalFrame;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
+import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class RegisterPage extends JInternalFrame {
+
+	private static final long serialVersionUID = 3L;
+	private JTextField fNText;
+	private JTextField lNText;
+	private JTextField dobText;
+	private JTextField contactText;
+	private JTextField addressText;
+	private JTextField postaCodeText;
+	private JTextField creditCardText;
+	private JTextField expiryDateText;
+	private JTextField emailText;
+	private JPasswordField confirmPassText;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					RegisterPage frame = new RegisterPage();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public RegisterPage() {
+		setClosable(true);
+		setBounds(150,150, 550, 450);
+		
+		JPanel panel = new JPanel();
+		getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setLayout(null);
+
+		JLabel individuallregisterlabel = new JLabel("Individual Register");
+		individuallregisterlabel.setBackground(Color.WHITE);
+		individuallregisterlabel.setBounds(215, 10, 117, 16);
+		panel.add(individuallregisterlabel);
+		
+		JLabel fName = new JLabel("First Name");
+		fName.setBounds(10, 40, 68, 16);
+		panel.add(fName);
+		
+		fNText = new JTextField();
+		fNText.setBounds(100, 38, 130, 26);
+		panel.add(fNText);
+		fNText.setColumns(10);
+		
+		JLabel lName = new JLabel("Last Name");
+		lName.setBounds(270, 40, 66, 16);
+		panel.add(lName);
+		
+		lNText = new JTextField();
+		lNText.setBounds(366, 36, 130, 26);
+		panel.add(lNText);
+		lNText.setColumns(10);
+		
+		JLabel dob = new JLabel("Date Of Birth");
+		dob.setBounds(10, 85, 81, 16);
+		panel.add(dob);
+		
+		dobText = new JTextField();
+		dobText.setBounds(100, 80, 130, 26);
+		panel.add(dobText);
+		dobText.setColumns(10);
+		
+		JLabel contact = new JLabel("Contact No");
+		contact.setBounds(270, 85, 81, 16);
+		panel.add(contact);
+		
+		contactText = new JTextField();
+		contactText.setBounds(366, 77, 130, 26);
+		panel.add(contactText);
+		contactText.setColumns(10);
+		
+		JLabel address = new JLabel("Address");
+		address.setBounds(10, 130, 51, 16);
+		panel.add(address);
+		
+		addressText = new JTextField();
+		addressText.setBounds(100, 125, 130, 26);
+		panel.add(addressText);
+		addressText.setColumns(10);
+		
+		JLabel postalCode = new JLabel("Postal Code");
+		postalCode.setBounds(270, 130, 81, 16);
+		panel.add(postalCode);
+		
+		postaCodeText = new JTextField();
+		postaCodeText.setBounds(366, 125, 130, 26);
+		panel.add(postaCodeText);
+		postaCodeText.setColumns(10);
+		
+		JLabel creditCard = new JLabel("Credit Card");
+		creditCard.setBounds(10, 175, 71, 16);
+		panel.add(creditCard);
+		
+		creditCardText = new JTextField();
+		creditCardText.setBounds(100, 170, 130, 26);
+		panel.add(creditCardText);
+		creditCardText.setColumns(10);
+		
+		JLabel expiryDate = new JLabel("Expiry Date");
+		expiryDate.setBounds(270, 175, 81, 16);
+		panel.add(expiryDate);
+		
+		expiryDateText = new JTextField();
+		expiryDateText.setBounds(366, 170, 130, 26);
+		panel.add(expiryDateText);
+		expiryDateText.setColumns(10);
+		
+		JLabel email = new JLabel("Email");
+		email.setBounds(10, 220, 34, 16);
+		panel.add(email);
+		
+		emailText = new JTextField();
+		emailText.setBounds(100, 215, 130, 26);
+		panel.add(emailText);
+		emailText.setColumns(10);
+		
+		JLabel password = new JLabel("Password");
+		password.setBounds(10, 265, 61, 16);
+		panel.add(password);
+		
+		JLabel confirmpas = new JLabel("Confirm Password");
+		confirmpas.setBounds(249, 265, 114, 16);
+		panel.add(confirmpas);
+		
+		JPasswordField passwordText = new JPasswordField();
+		passwordText.setBounds(100, 260, 130, 26);
+		panel.add(passwordText);
+		
+		confirmPassText = new JPasswordField();
+		confirmPassText.setBounds(366, 260, 130, 26);
+		panel.add(confirmPassText);
+		
+		JButton registerbtn = new JButton("Register");
+		registerbtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LoginPage ne = new LoginPage();
+				ne.setVisible(true);
+			}
+		});
+		registerbtn.setBounds(215, 320, 117, 29);
+		panel.add(registerbtn);
+		
+		JButton btnNewButton = new JButton("Register As Corporate");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CorporateRegister corlog = new CorporateRegister();
+				corlog.setVisible(true);
+			}
+		});
+		btnNewButton.setBounds(185, 361, 164, 29);
+		panel.add(btnNewButton);
+
+	}
+}

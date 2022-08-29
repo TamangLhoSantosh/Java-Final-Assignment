@@ -1,0 +1,18 @@
+// importing dashboard class from frontend package 
+import FrontEnd.Dashboard;
+
+//declaring class name as mainapplication
+public class MainApplication {
+	
+	//declaring main method
+	public static void main(String[] args) {
+		
+		//exception handler
+		try {
+			Dashboard window = new Dashboard();
+			window.setVisible(true);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

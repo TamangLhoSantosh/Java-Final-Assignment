@@ -1,0 +1,80 @@
+package FrontendLayer;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import java.awt.FlowLayout;
+import java.awt.Color;
+import javax.swing.JButton;
+
+public class CustomerHome extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					CustomerHome frame = new CustomerHome();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public CustomerHome() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1920, 1080);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		
+		JPanel panel = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEFT);
+		contentPane.add(panel, BorderLayout.NORTH);
+		
+		JLabel logo = new JLabel("fsshaljfhsldhf");
+		logo.setBackground(Color.WHITE);
+		panel.add(logo);
+		
+		JPanel panel_3 = new JPanel();
+		panel.add(panel_3);
+		
+		JButton home = new JButton("Home");
+		panel_3.add(home);
+		
+		JButton gallery = new JButton("Gallery");
+		panel_3.add(gallery);
+		
+		JButton aboutUs = new JButton("About Us");
+		panel_3.add(aboutUs);
+		
+		JButton contactUs = new JButton("Contact Us");
+		panel_3.add(contactUs);
+		
+		JButton profile = new JButton("Profile");
+		panel_3.add(profile);
+		
+		JButton logout = new JButton("Log Out");
+		panel_3.add(logout);
+		
+		JPanel panel_1 = new JPanel();
+		contentPane.add(panel_1, BorderLayout.CENTER);
+	}
+
+}

@@ -1,0 +1,102 @@
+package DatabaseLayer;
+
+import Models.User;
+import Helper.DataConnector;
+import Helper.DatabaseConnector;
+import java.sql.statement;
+import java.sql.perparedstatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResulSet;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+public class DLUser {
+
+	private User user;
+	private DatabaseConnector db;
+	private Connection connection;
+	
+	public DLUser() throws Exception{
+		this.user = new user();
+	}
+
+	public DLUser(User user) throws Exception{
+		this.user = user;
+		try {
+			this.db = DatabaseConnector.getInstance();
+			this.connection = this.db.getConnection();
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+ 
+	public User getUser() {
+		return user;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	public User save() throws Exception{
+		try {
+			//prepare for the data to be returned in case of insert
+			String generatedColumns[] = {"id"};
+			//create statement
+			String query = "INSERT INTO user(name, address) VALUES(?,?)";
+			PreparedStatement statement = this.connection.prepareStatement(query, generatedColumns);
+			statement.setString(1, this.user.getName());
+			statement.setString(2, this.user.getAddress());
+			//execute the query
+			int noOfUpdate = statement.executeUpdate();
+			if(noOfUpdate > 0) {
+				ResultSet rs = statement.getGeneratedKeys();
+				if(rs.next()) {
+					int id = rs.getInt(1);
+					this.user.setUserID(id);
+				}
+			}
+			return this.user;
+		} catch(Exception ex) {
+			throw ex;
+		}
+	}
+	
+	public User update() throws Exception{
+		try {
+			//create statement
+			String query = "UPDATE user SET name = ?, address = ? WHERE id = ?";
+			PreparedStatement statement = this.connection.prepareStatement(query);
+			statement.setString(1, this.user.getName());
+			statement.setString(2, this.user.getAddress());
+			statement.setInt(3, user.getUserID());
+			//execute the query
+			int noOfUpdate = statement.executeUpdate();
+			if(noOfUpdate > 0) {
+				ResultSet rs = statement.getGeneratedKeys();
+				if(rs.next()) {
+					int id = rs.getInt(1);
+					this.user.setUserID(id);
+				}
+			}
+			return this.user;
+		} catch(Exception ex) {
+			throw ex;
+		}
+	}
+	
+	public User delete() throws Exception{
+		try {
+			//create statement
+			String query = "DELETE FROM user WHERE id = ?";
+			PreparedStatement statement = this.connection.prepareStatement(query);
+			statement.setInt(1, user.getUserID());
+			//execute the query
+			statement.executeUpdate();
+			}
+		 catch(Exception ex) {
+			throw ex;
+		}
+		
+	}
+}

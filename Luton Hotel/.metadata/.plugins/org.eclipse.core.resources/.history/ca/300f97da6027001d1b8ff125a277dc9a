@@ -1,0 +1,102 @@
+package FrontendLayer;
+
+import java.awt.EventQueue;
+
+import javax.swing.JInternalFrame;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
+
+public class LoginPage extends JInternalFrame {
+
+	private static final long serialVersionUID = 2L;
+	private JTextField emtext;
+	private JPasswordField passwordField;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					LoginPage frame = new LoginPage();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public LoginPage() {
+		setBackground(Color.CYAN);
+		setResizable(true);
+		setClosable(true);
+		setBounds(100, 100, 450, 300);
+		
+		JPanel panel_2 = new JPanel();
+		getContentPane().add(panel_2, BorderLayout.SOUTH);
+		
+		JLabel lblNewLabel = new JLabel("Not Registered Yet???");
+		panel_2.add(lblNewLabel);
+		
+		JButton registerbtn = new JButton("Register Now");
+		panel_2.add(registerbtn);
+		registerbtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		registerbtn.setBackground(Color.GREEN);
+		
+		JPanel panel_1 = new JPanel();
+		getContentPane().add(panel_1, BorderLayout.NORTH);
+		
+		JLabel sign = new JLabel("Welcome To Hotel Luton");
+		panel_1.add(sign);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.LIGHT_GRAY);
+		getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setLayout(null);
+		
+		JLabel email = new JLabel("Email");
+		email.setBounds(40, 60, 39, 16);
+		panel.add(email);
+		
+		JLabel password = new JLabel("Password");
+		password.setBounds(40, 100, 61, 16);
+		panel.add(password);
+		
+		emtext = new JTextField();
+		emtext.setBounds(164, 55, 179, 26);
+		panel.add(emtext);
+		emtext.setColumns(10);
+		
+		JButton loginbtn_1 = new JButton("Login");
+		loginbtn_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		loginbtn_1.setBackground(Color.GREEN);
+		loginbtn_1.setBounds(162, 141, 117, 29);
+		panel.add(loginbtn_1);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(164, 95, 179, 26);
+		panel.add(passwordField);
+		
+		
+		
+	}
+}

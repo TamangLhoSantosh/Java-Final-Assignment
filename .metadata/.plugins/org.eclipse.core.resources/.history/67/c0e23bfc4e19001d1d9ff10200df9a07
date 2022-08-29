@@ -1,0 +1,61 @@
+package BusinessLayer;
+//this class uses the user model to receive and send data to the database layer
+import Model.User;
+import java.util.ArrayList;
+import DatabaseLayer.DLUser;
+
+public class DLUser {
+
+	public User getUser() {
+		return user;
+	}
+	
+	public void setUser(User user) throws Exception {
+		try {
+			if(this.validateUser(user)) {
+				this.user = user;
+			}
+		}catch(InputExcepion ex) {
+			throw ex
+		}
+	}
+	
+	private boolean validateUser(Models.User user) throws InputException{
+		if(user.getName() == null || user.getName().length() == 0){
+			throw new InputException("User name cannot be empty.");
+			
+		}
+		if(user.getAddress() == null || user.getAddress().length() == 0) {
+			throw new InputException("User address cannot be empty.");
+		}
+		return true;
+	}
+	
+	public User save() throws Exception{
+		try {
+			DLUser dlUser = new DLUser();
+			return dluser.save();
+		}catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	public void delete() throws Exception{
+		try {
+			DLUser dlUser = new DLUser();
+			return dluser.delete();
+		}catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	public User update() throws Exception{
+		try {
+			DLUser dlUser = new DLUser();
+			return dluser.update();
+		}catch (Exception e) {
+			throw e;
+		}
+	}
+	
+}

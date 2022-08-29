@@ -1,0 +1,38 @@
+package BusinessLayer;
+
+import Helper.InputException;
+import Models.Login;
+
+public class BLLogin {
+
+	//declaring variable
+	private Login log;
+
+	public BLLogin() {
+		this.log = new Login();
+	}
+
+	public Login getLog() {
+		return log;
+	}
+
+	public void setLog(Login log) throws Exception{
+		try {
+			if(this.ValidateLogin(log)) {
+				this.log = log;
+			}
+		}catch (Exception ex) {
+			throw ex;
+		}	
+	}
+	
+	public boolean ValidateLogin(Login log) throws InputException {
+		if(log.getEmail() == null || log.getEmail().length()==0){
+			throw new InputException("User email cannot be empty.");
+		}
+		if(log.getPassword() == null || log.getPassword().length()==0){
+			throw new InputException("User password cannot be empty.");
+		}
+		return true;
+	}
+}

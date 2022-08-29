@@ -1,0 +1,13 @@
+
+import FrontendLayer.LoginPage;
+
+public class Execute {
+	public static void main(String[] args) {
+		try {
+			LoginPage window = new LoginPage();
+			window.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

@@ -1,0 +1,76 @@
+package FrontEnd;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+
+public class Dashboard {
+
+	private JFrame frame;
+	private JTextField tfName;
+	private JTextField tfAddress;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Dashboard window = new Dashboard();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public Dashboard() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JPanel plhead = new JPanel();
+		plhead.setBackground(Color.LIGHT_GRAY);
+		frame.getContentPane().add(plhead, BorderLayout.NORTH);
+		
+		JLabel lbname = new JLabel("Name");
+		plhead.add(lbname);
+		
+		tfName = new JTextField();
+		plhead.add(tfName);
+		tfName.setColumns(10);
+		
+		JLabel lbaddress = new JLabel("Address");
+		plhead.add(lbaddress);
+		
+		tfAddress = new JTextField();
+		plhead.add(tfAddress);
+		tfAddress.setColumns(10);
+		
+		JButton btSave = new JButton("Save");
+		plhead.add(btSave);
+		
+		JPanel pl2 = new JPanel();
+		pl2.setBackground(Color.GRAY);
+		frame.getContentPane().add(pl2, BorderLayout.CENTER);
+	}
+
+}
