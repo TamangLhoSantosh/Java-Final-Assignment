@@ -33,7 +33,6 @@ public class BookingPage extends JFrame {
 	private static JRadioButton doub;
 	private static JRadioButton twin;
 	private String roomType;
-	public static JFrame frame;
 	
 	/**
 	 * Launch the application.
@@ -55,7 +54,6 @@ public class BookingPage extends JFrame {
 	 * Create the frame.
 	 */
 	public BookingPage() {
-		frame = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(500, 300, 500, 350);
 		contentPane = new JPanel();
@@ -171,6 +169,7 @@ public class BookingPage extends JFrame {
 				booking();
 			}
 		});
+		bookr.setFocusable(false);
 		bookr.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 		btn.add(bookr);
 		
@@ -182,6 +181,7 @@ public class BookingPage extends JFrame {
 				dispose();
 			}
 		});
+		cancel.setFocusable(false);
 		cancel.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 		btn.add(cancel);
 		
@@ -213,6 +213,7 @@ public class BookingPage extends JFrame {
 			BLBooking blBook = new BLBooking();
 			blBook.setBook(book);
 			blBook.book();
+			dispose();
 		}catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, ex);
 		}

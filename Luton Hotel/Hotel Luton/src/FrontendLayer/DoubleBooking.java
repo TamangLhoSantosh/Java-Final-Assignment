@@ -165,6 +165,7 @@ public class DoubleBooking extends JFrame {
 		box.add(btn);
 		
 		JButton bookr = new JButton("Book");
+		bookr.setFocusable(false);
 		bookr.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				booking();
@@ -174,6 +175,7 @@ public class DoubleBooking extends JFrame {
 		btn.add(bookr);
 		
 		JButton cancel = new JButton("Cancel");
+		cancel.setFocusable(false);
 		cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CustomerHome home = new CustomerHome();
@@ -212,6 +214,7 @@ public class DoubleBooking extends JFrame {
 			BLBooking blBook = new BLBooking();
 			blBook.setBook(book);
 			blBook.book();
+			dispose();
 		}catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, ex);
 		}

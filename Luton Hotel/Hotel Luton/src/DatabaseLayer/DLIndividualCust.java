@@ -132,21 +132,21 @@ public class DLIndividualCust {
 	}
 	
 	//method to show all individual customer
-	public ArrayList<IndividualCustomer> getAllIndividualCust() throws Exception{
+	public ArrayList<IndividualCustomer> viewAllIC() throws Exception{
 		try {
 			ArrayList<IndividualCustomer> ics = new ArrayList<IndividualCustomer>();
 			
 			//query to select all data of individual customer
-			String query = "SELECT * FROM individualcustomer ORDER BY fName";
+			String query = "SELECT * FROM individualcustomer ORDER BY first_Name";
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			while(rs.next()) {
 				IndividualCustomer ic  = new IndividualCustomer();
-				ic.setCustomerId(rs.getInt("id"));
-				ic.setfName(rs.getString("fName"));
-				ic.setlName(rs.getString("lName"));
-				ic.setDateOfBirth(rs.getString("dateOfBirth"));
-				ic.setContact(rs.getString("contact"));
+				ic.setCustomerId(rs.getInt("icustomer_id"));
+				ic.setfName(rs.getString("first_Name"));
+				ic.setlName(rs.getString("last_Name"));
+				ic.setDateOfBirth(rs.getString("dob"));
+				ic.setContact(rs.getString("contact_No"));
 				ic.setAddress(rs.getString("address"));
 				ics.add(ic);
 			}
@@ -172,16 +172,16 @@ public class DLIndividualCust {
 					where = where + "AND " + keys[i] + " LIKE '%" + values[i] + "%' ";
 				}
 			}
-			String query ="SELECT * FROM individualcustomer " + where + " ORFER BY fName";
+			String query ="SELECT * FROM individualcustomer " + where + " ORDER BY first_Name";
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			while(rs.next()) {
 				IndividualCustomer ic = new IndividualCustomer();
-				ic.setCustomerId(rs.getInt("id"));
-				ic.setfName(rs.getString("fName"));
-				ic.setlName(rs.getString("lName"));
-				ic.setDateOfBirth(rs.getString("dateOfBirth"));
-				ic.setContact(rs.getString("contact"));
+				ic.setCustomerId(rs.getInt("icustomer_id"));
+				ic.setfName(rs.getString("first_Name"));
+				ic.setlName(rs.getString("last_Name"));
+				ic.setDateOfBirth(rs.getString("dob"));
+				ic.setContact(rs.getString("contact_No"));
 				ic.setAddress(rs.getString("address"));
 				ics.add(ic);
 			}

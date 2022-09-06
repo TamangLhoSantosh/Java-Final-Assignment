@@ -1,0 +1,90 @@
+package BusinessLayer;
+import Models.Room;
+
+import java.util.ArrayList;
+
+import DatabaseLayer.DLRoom;
+import Helper.InputException;
+
+public class BLRoom {
+	Room room;
+	
+	public BLRoom() {
+		this.room = new Room();
+	}
+	
+	public Room getUser() {
+		return room;
+	}
+
+	public void setUser(Room room) throws InputException {
+		try {
+			if(this.validateRoom(room)) {
+				this.room = room;
+			}
+		}catch(InputException ex) {
+			throw ex;
+		}
+	}
+	
+	private boolean validateRoom(Room room) throws InputException {
+		if(room.getName() == null || room.getName().length() == 0) {
+			throw new InputException("User name cannot be empty.");
+		}
+		if(room.getAddress() == null || room.getAddress().length() == 0) {
+			throw new InputException("User address cannot be empty.");
+		}
+		return true;
+	}
+	
+	// save the user, update the user, delete the user, getUserList
+	
+	public Room save() throws Exception {
+		// This function saves the user detail to database and 
+		// returns the user object after saving
+		try {
+			DLRoom dlRoom = new DLRoom(this.room);
+			return dlRoom.save();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	public Room update() throws Exception {
+		// This function saves the user detail to database and returns the user object after saving
+		try {
+			DLRoom dlRoom = new DLRoom(this.room);
+			return dlRoom.update();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	public void delete() throws Exception {
+		// This function saves the user detail to database and returns the user object after saving
+		try {
+			DLRoom dlRoom = new DLRoom(this.room);
+			dlUser.delete();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	public ArrayList<Room> getAllRoom() throws Exception {
+		try {
+			DLRoom dlRoom = new DLRoom();
+			return dlRoom.getAllUser();
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	public ArrayList<Room> searchRoom(String[] keys, String[] values) throws Exception{
+		try {
+			DLRoom dlRoom = new DLRoom());
+			return dlRoom.searchUser(keys, values);
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+}

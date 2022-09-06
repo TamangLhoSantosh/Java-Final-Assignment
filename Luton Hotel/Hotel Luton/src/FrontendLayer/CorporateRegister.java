@@ -149,6 +149,7 @@ public class CorporateRegister extends JInternalFrame {
 		panel_1.add(password);
 		
 		JButton register = new JButton("Register");
+		register.setFocusable(false);
 		register.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -159,8 +160,9 @@ public class CorporateRegister extends JInternalFrame {
 		register.setBounds(216, 420, 117, 29);
 		panel_1.add(register);
 		
-		JButton btnNewButton = new JButton("Already Have An Account??? Login Now");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton already = new JButton("Already Have An Account??? Login Now");
+		already.setFocusable(false);
+		already.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				//opens login page
@@ -168,14 +170,15 @@ public class CorporateRegister extends JInternalFrame {
 				Main.contentPane.add(new LoginPage()).setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(135, 454, 270, 29);
-		panel_1.add(btnNewButton);
+		already.setBounds(135, 454, 270, 29);
+		panel_1.add(already);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Color.WHITE);
 		getContentPane().add(panel_2, BorderLayout.SOUTH);
 		
 		JButton regasin = new JButton("Register As Individual");
+		regasin.setFocusable(false);
 		regasin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				

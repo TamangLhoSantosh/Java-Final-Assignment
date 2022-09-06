@@ -38,6 +38,7 @@ public class LoginPage extends JInternalFrame {
 		panel1.add(not);
 		
 		JButton registerbtn = new JButton("Register Now");
+		registerbtn.setFocusable(false);
 		panel1.add(registerbtn);
 		registerbtn.addActionListener(new ActionListener() {
 			
@@ -78,9 +79,9 @@ public class LoginPage extends JInternalFrame {
 		panel.add(password);
 		
 		JButton loginbtn = new JButton("Login");
+		loginbtn.setFocusable(false);
 		loginbtn.setBackground(Color.GREEN);
 		loginbtn.setBounds(216, 142, 117, 29);
-		panel.add(loginbtn);
 		loginbtn.addActionListener(new ActionListener() {
 			
 			//calls login method
@@ -88,6 +89,7 @@ public class LoginPage extends JInternalFrame {
 				login();
 			}
 		});
+		panel.add(loginbtn);
 		
 	}
 	

@@ -81,10 +81,10 @@ public class BLCorporateCust {
 	}
 	
 	//shows all the corporate customer registered in the hotel
-	public ArrayList<CorporateCustomer> getAllCorporateCust() throws Exception {
+	public ArrayList<CorporateCustomer> viewAllCC() throws Exception {
 		try {
-			DLCorporateCust dlCorporrateCust = new DLCorporateCust(this.corporateCust);
-			return dlCorporrateCust.getAllCorporateCust();
+			DLCorporateCust dlCorporrateCust = new DLCorporateCust();
+			return dlCorporrateCust.viewAllCC();
 		}catch(Exception e) {
 			throw e;
 		}
@@ -93,7 +93,7 @@ public class BLCorporateCust {
 	//searches the specific corporate customer
 	public ArrayList<CorporateCustomer> searchCorporateCust(String[] keys, String[] values) throws Exception{
 		try {
-			DLCorporateCust dlCorporrateCust = new DLCorporateCust(this.corporateCust);
+			DLCorporateCust dlCorporrateCust = new DLCorporateCust();
 			return dlCorporrateCust.searchCorporateCust(keys, values);
 		}catch(Exception e) {
 			throw e;

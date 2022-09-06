@@ -1,0 +1,42 @@
+package FrontendLayer;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+
+import java.awt.FlowLayout;
+import java.awt.Font;
+
+public class UpdateBooking extends JInternalFrame {
+
+	private static final long serialVersionUID = -7875460471440528401L;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					UpdateBooking frame = new UpdateBooking();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public UpdateBooking() {
+		setResizable(true);	}
+
+}

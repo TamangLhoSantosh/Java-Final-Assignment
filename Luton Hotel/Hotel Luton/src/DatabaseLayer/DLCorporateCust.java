@@ -159,22 +159,23 @@ public class DLCorporateCust {
 	}
 	
 	//method to show all corporate customer
-	public ArrayList<CorporateCustomer> getAllCorporateCust() throws Exception{
+	public ArrayList<CorporateCustomer> viewAllCC() throws Exception{
 		try {
 			ArrayList<CorporateCustomer> ccs = new ArrayList<CorporateCustomer>();
 			
 			//query to select all data of corporate customer
-			String query = "SELECT * FROM corporatecustomer ORDER BY fName";
+			String query = "SELECT * FROM corporatecustomer ORDER BY Registration_No";
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			while(rs.next()) {
 				CorporateCustomer cc = new CorporateCustomer();
-				cc.setCustomerId(rs.getInt("id"));
-				cc.setRegistrationNo(rs.getInt("registrationNo"));
-				cc.setCompanyName(rs.getString("CompanyName"));
-				cc.setContact(rs.getString("contact"));
+				cc.setCustomerId(rs.getInt("ccustomer_id"));
+				cc.setRegistrationNo(rs.getInt("registration_No"));
+				cc.setCompanyName(rs.getString("Company_Name"));
+				cc.setContact(rs.getString("contact_no"));
 				cc.setAddress(rs.getString("address"));
-				cc.setDiscountDiscussed(rs.getInt("discountDiscussed"));
+				cc.setDiscountDiscussed(rs.getInt("discount_Discussed"));
+				cc.setDiscountYear(rs.getString("discount_Year"));
 				ccs.add(cc);
 			}
 			return ccs;
@@ -199,17 +200,18 @@ public class DLCorporateCust {
 					where = where + "AND " + keys[i] + " LIKE '%" + values[i] + "%' ";
 				}
 			}
-			String query ="SELECT * FROM corporatecustomer" + where + "ORFER BY fName";
+			String query ="SELECT * FROM corporatecustomer" + where + "ORDER BY Registration_No";
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			while(rs.next()) {
 				CorporateCustomer cc = new CorporateCustomer();
-				cc.setCustomerId(rs.getInt("id"));
-				cc.setRegistrationNo(rs.getInt("registrationNo"));
-				cc.setCompanyName(rs.getString("CompanyName"));
-				cc.setContact(rs.getString("contact"));
+				cc.setCustomerId(rs.getInt("ccustomer_id"));
+				cc.setRegistrationNo(rs.getInt("registration_No"));
+				cc.setCompanyName(rs.getString("Company_Name"));
+				cc.setContact(rs.getString("contact_no"));
 				cc.setAddress(rs.getString("address"));
-				cc.setDiscountDiscussed(rs.getInt("discountDiscussed"));
+				cc.setDiscountDiscussed(rs.getInt("discount_Discussed"));
+				cc.setDiscountYear(rs.getString("discount_Year"));
 				ccs.add(cc);
 			}
 			}catch (SQLException e) {

@@ -169,15 +169,17 @@ public class RegisterPage extends JInternalFrame {
 		panel.add(confirmPassword);
 		
 		JButton registerbtn = new JButton("Register");
+		registerbtn.setFocusable(false);
 		registerbtn.setBounds(200, 290, 95, 29);
-		panel.add(registerbtn);
 		registerbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 						register();
 			}
 		});
+		panel.add(registerbtn);
 		
 		JButton login = new JButton("Already have an account?? Login Now");
+		login.setFocusable(false);
 		login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -194,7 +196,7 @@ public class RegisterPage extends JInternalFrame {
 		getContentPane().add(panel_2, BorderLayout.SOUTH);
 		
 		JButton regascop = new JButton("Register As Corporate");
-		panel_2.add(regascop);
+		regascop.setFocusable(false);
 		regascop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -203,7 +205,7 @@ public class RegisterPage extends JInternalFrame {
 				Main.contentPane.add(new CorporateRegister()).setVisible(true);
 			}
 		});
-		
+		panel_2.add(regascop);		
 
 	}
 	

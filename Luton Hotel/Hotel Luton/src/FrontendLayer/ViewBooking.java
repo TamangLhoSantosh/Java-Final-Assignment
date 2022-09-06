@@ -12,7 +12,6 @@ import javax.swing.table.DefaultTableModel;
 import BusinessLayer.BLBooking;
 import Models.Booking;
 
-import javax.swing.JDesktopPane;
 import java.awt.FlowLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -31,6 +30,9 @@ public class ViewBooking extends JFrame {
 	private DefaultTableModel model;
 	public static JButton cancel;
 	public static int id;
+	public static String aDate;
+	public static String dDate;
+	public static String rType;
 
 	/**
 	 * Launch the application.
@@ -53,44 +55,24 @@ public class ViewBooking extends JFrame {
 	 */
 	public ViewBooking() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1920, 1080);
+		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JDesktopPane forjiFrame = new JDesktopPane();
-		contentPane.add(forjiFrame, BorderLayout.CENTER);
-		forjiFrame.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
 		JPanel panel = new JPanel();
-		forjiFrame.add(panel);
+		contentPane.add(panel, BorderLayout.CENTER);
+		contentPane.add(panel);
 		
 		JPanel box = new JPanel();
 		panel.add(box);
 		box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
 		
 		table = new JTable();
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		JScrollPane forTable = new JScrollPane(table);
 		box.add(forTable);
-		
-		model = new DefaultTableModel();
-		Object[] colsName = new Object[8];
-		colsName[0] = "Booking Id";
-		colsName[1] = "Booking Date";
-		colsName[2] = "Room Type";
-		colsName[3] = "Arrival Date";
-		colsName[4] = "Departure Date";
-		colsName[5] = "Booking Verifired";
-		colsName[6] = "Booking Status";
-		colsName[7] = "Room Id";
-		
-		model.setColumnIdentifiers(colsName);
-		table.setModel(model);
-		
-		viewBooking();
-		
+		showTable();
 		
 		JPanel empty = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) empty.getLayout();
@@ -106,39 +88,22 @@ public class ViewBooking extends JFrame {
 		JButton update = new JButton("Update Booking");
 		update.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				forjiFrame.add(new UpdateBooking()).setVisible(true);
+				update();
 			}
 		});
+		update.setFocusable(false);
 		update.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		btn.add(update);
 
-		JButton edit = new JButton("Cancel Booking");
-		edit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {	
-				int i = table.getSelectedRow();
-				Object same = model.getValueAt(i,6);
-				if((same.toString()).equals("Cancel")) {
-					JOptionPane.showMessageDialog(null, "Already cancelled");
-				}
-				else {
-					if(i == 0) {
-						JOptionPane.showMessageDialog(null, "Select a row first");
-					}
-					else {
-						id = Integer.parseInt(model.getValueAt(i, 0).toString());
-						try {
-							BLBooking blb= new BLBooking();
-							blb.cancel();
-							viewBooking();
-						}catch(Exception ex) {
-							JOptionPane.showMessageDialog(null, ex.getMessage());
-						}
-					}
-				}
+		JButton cancelb = new JButton("Cancel Booking");
+		cancelb.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancel();
 			}
 		});
-		edit.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		btn.add(edit);
+		cancelb.setFocusable(false);
+		cancelb.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		btn.add(cancelb);
 		
 		cancel = new JButton("Cancel");
 		cancel.addActionListener(new ActionListener() {
@@ -148,8 +113,30 @@ public class ViewBooking extends JFrame {
 				dispose();
 			}
 		});
+		cancel.setFocusable(false);
 		cancel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		btn.add(cancel);
+		
+	}
+	
+	public void showTable() {
+
+		model = new DefaultTableModel();
+		
+		Object[] colsName = new Object[8];
+		colsName[0] = "Booking Id";
+		colsName[1] = "Booking Date";
+		colsName[2] = "Room Type";
+		colsName[3] = "Arrival Date";
+		colsName[4] = "Departure Date";
+		colsName[5] = "Booking Verifired";
+		colsName[6] = "Booking Status";
+		colsName[7] = "Room Id";
+		
+		model.setColumnIdentifiers(colsName);
+		table.setModel(model);
+		
+		viewBooking();
 		
 	}
 	
@@ -164,7 +151,7 @@ public class ViewBooking extends JFrame {
 						booking.getBookingDate(),
 						booking.getRoomType(),
 						booking.getArrivalDate(),
-						booking.getBookingDate(),
+						booking.getDepartureDate(),
 						booking.getBookingVerified(),
 						booking.getBookingStatus()		
 				};
@@ -174,5 +161,50 @@ public class ViewBooking extends JFrame {
 		}catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, ex.getMessage());
 		}
+	}
+	
+	public void update() {
+		int i = table.getSelectedRow();
+		if(i < 0) {
+			JOptionPane.showMessageDialog(null, "Select a row first");
+		}
+		else {
+			String cancel = (model.getValueAt(i, 0).toString());
+			if(cancel.equals("CANCEL")){
+				JOptionPane.showMessageDialog(null, "Booking is already cancelled");
+			}
+			else {
+				id = Integer.parseInt(model.getValueAt(i, 0).toString());
+				rType = (model.getValueAt(i, 2)).toString(); 
+				aDate = (model.getValueAt(i, 3)).toString();
+				dDate = (model.getValueAt(i, 4)).toString();
+				UpdateBooking ub = new UpdateBooking();
+				ub.setVisible(true);
+			}
+		}
+	}
+	
+	public void cancel() {
+		int i = table.getSelectedRow();
+		if(i < 0) {
+			JOptionPane.showMessageDialog(null, "Select a row first");
+		}
+		else {
+			String same = (model.getValueAt(i, 0).toString());
+			if(same.equals("CANCEL")) {
+				JOptionPane.showMessageDialog(null, "Already cancelled");
+			}
+			else {
+				id = Integer.parseInt(model.getValueAt(i, 0).toString());
+				try {
+					BLBooking blb= new BLBooking();
+					blb.cancel();
+					viewBooking();
+				}catch(Exception ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage());
+				}
+			}
+		}
+
 	}
 }

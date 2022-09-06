@@ -60,6 +60,16 @@ public class BLBooking {
 		}
 	}
 	
+	//connecting with database
+	public void update() throws Exception{
+		try {//creating new object and initializing it
+			DLBooking dlupdate = new DLBooking(this.book);
+			dlupdate.update();
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
 	//connection with database
 	public void cancel() throws Exception{
 		try {

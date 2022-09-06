@@ -63,6 +63,7 @@ public class Profile extends JFrame {
 		panel.add(panel2, BorderLayout.EAST);
 
 		JButton home = new JButton("Home");
+		home.setFocusable(false);
 		home.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CustomerHome home = new CustomerHome();
@@ -73,6 +74,7 @@ public class Profile extends JFrame {
 		panel2.add(home);
 		
 		JButton gallery = new JButton("Gallery");
+		gallery.setFocusable(false);
 		gallery.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Gallery galler = new Gallery();
@@ -83,7 +85,7 @@ public class Profile extends JFrame {
 		panel2.add(gallery);
 		
 		JButton aboutUs = new JButton("About Us");
-		panel2.add(aboutUs);
+		aboutUs.setFocusable(false);
 		aboutUs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AboutUs abou = new AboutUs();
@@ -91,9 +93,10 @@ public class Profile extends JFrame {
 				dispose();
 			}
 		});
+		panel2.add(aboutUs);
 		
 		JButton contactUs = new JButton("Contact Us");
-		panel2.add(contactUs);
+		contactUs.setFocusable(false);
 		contactUs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			ContactUs conU = new ContactUs();
@@ -101,9 +104,10 @@ public class Profile extends JFrame {
 			dispose();
 			}
 		});
+		panel2.add(contactUs);
 		
 		JButton profile = new JButton("Profile");
-		panel2.add(profile);
+		profile.setFocusable(false);
 		profile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Profile pof = new Profile();
@@ -111,17 +115,10 @@ public class Profile extends JFrame {
 				dispose();
 			}
 		});
+		panel2.add(profile);
 		
 		JButton logout = new JButton("Log Out");
-		panel2.add(logout);
-		
-		JPanel panel1 = new JPanel();
-		panel.add(panel1, BorderLayout.WEST);
-		
-		JLabel logo = new JLabel("");
-		logo.setIcon(new ImageIcon("/Users/xic/Desktop/Java Final Assignment/Luton Hotel/Hotel Luton/bin/logo.jpeg"));
-		logo.setHorizontalAlignment(SwingConstants.CENTER);
-		panel1.add(logo);
+		logout.setFocusable(false);
 		logout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(JOptionPane.showConfirmDialog(logout, "Are You Sure You Want To Log Out???", "LOGOUT",
@@ -134,10 +131,19 @@ public class Profile extends JFrame {
 				}
 			}
 		});
+		panel2.add(logout);
+		
+		JPanel panel1 = new JPanel();
+		panel.add(panel1, BorderLayout.WEST);
+		
+		JLabel logo = new JLabel("");
+		logo.setIcon(new ImageIcon("/Users/xic/Desktop/Java Final Assignment/Luton Hotel/Hotel Luton/bin/logo.jpeg"));
+		logo.setHorizontalAlignment(SwingConstants.CENTER);
+		panel1.add(logo);
 
 		JPanel center = new JPanel();
-		contentPane.add(center, BorderLayout.CENTER);
 		center.setLayout(new BorderLayout(0, 0));
+		contentPane.add(center, BorderLayout.CENTER);
 		
 		JPanel pageName = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) pageName.getLayout();

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import FrontendLayer.BookingPage;
 import FrontendLayer.LastPage;
 import FrontendLayer.ViewBooking;
 import Helper.DatabaseConnector;
@@ -78,10 +77,7 @@ public class DLBooking {
 						this.book.setBookingId(id);
 						foreignKey = this.book.getBookingId();
 
-		                JOptionPane.showMessageDialog(null,"Booking Made");
-		                
-		                //closing current page
-		                BookingPage.frame.dispose();
+		                JOptionPane.showMessageDialog(null,"Booking Request Made");
 		                
 		                //opening next page
 		                LastPage lp = new LastPage();
@@ -95,20 +91,21 @@ public class DLBooking {
 		}
 		
 		//method to update the data
-		public Booking update() throws Exception{
+		public void update() throws Exception{
 			try {
 				
 				//creating query to updated data 
-				String query = "Update booking SET Arrival_Date = ?, Departure_Date = ?, room_type = ? WHERE id = ?";
+				String query = "Update booking SET Arrival_Date = ?, Departure_Date = ?, room_type = ? WHERE Booking_id = ?";
 				PreparedStatement statement = this.connection.prepareStatement(query);
 				statement.setString(1,this.book.getArrivalDate());
 				statement.setString(2,this.book.getDepartureDate());
 				statement.setString(3, this.book.getRoomType());
-				statement.setInt(4, this.book.getBookingId());
+				statement.setInt(4, ViewBooking.id);
 				
 				//executing query
 				statement.executeUpdate();
-				return this.book;
+				
+				JOptionPane.showMessageDialog(null, "Booking Updated");
 			}catch(Exception ex) {
 				throw ex;
 			}
@@ -119,7 +116,7 @@ public class DLBooking {
 			try {
 				
 				//qurey creation
-				String query = "Update booking SET Booking_Status = 'CANCEL' WHERE Booking_id = ? AND Booking_Status = 'Pending'";
+				String query = "Update booking SET Booking_Status = 'Cancel' WHERE Booking_id = ? AND Booking_Status = 'Pending'";
 				PreparedStatement statement = this.connection.prepareStatement(query);
 				statement.setInt(1, ViewBooking.id);
 

@@ -59,6 +59,7 @@ public class CustomerHome extends JFrame {
 		panel.add(panel_2, BorderLayout.EAST);
 
 		JButton home = new JButton("Home");
+		home.setFocusable(false);
 		home.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CustomerHome home = new CustomerHome();
@@ -69,6 +70,7 @@ public class CustomerHome extends JFrame {
 		panel_2.add(home);
 		
 		JButton gallery = new JButton("Gallery");
+		gallery.setFocusable(false);
 		gallery.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Gallery galler = new Gallery();
@@ -79,7 +81,7 @@ public class CustomerHome extends JFrame {
 		panel_2.add(gallery);
 		
 		JButton aboutUs = new JButton("About Us");
-		panel_2.add(aboutUs);
+		aboutUs.setFocusable(false);
 		aboutUs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AboutUs abou = new AboutUs();
@@ -87,9 +89,10 @@ public class CustomerHome extends JFrame {
 				dispose();
 			}
 		});
+		panel_2.add(aboutUs);
 		
 		JButton contactUs = new JButton("Contact Us");
-		panel_2.add(contactUs);
+		contactUs.setFocusable(false);
 		contactUs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			ContactUs conU = new ContactUs();
@@ -97,9 +100,10 @@ public class CustomerHome extends JFrame {
 			dispose();
 			}
 		});
+		panel_2.add(contactUs);
 		
 		JButton profile = new JButton("Profile");
-		panel_2.add(profile);
+		profile.setFocusable(false);
 		profile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Profile pof = new Profile();
@@ -107,9 +111,10 @@ public class CustomerHome extends JFrame {
 				dispose();
 			}
 		});
+		panel_2.add(profile);
 		
 		JButton logout = new JButton("Log Out");
-		panel_2.add(logout);
+		logout.setFocusable(false);
 		logout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(JOptionPane.showConfirmDialog(logout, "Are You Sure You Want To Log Out???", "LOGOUT",
@@ -122,6 +127,7 @@ public class CustomerHome extends JFrame {
 				}
 			}
 		});
+		panel_2.add(logout);
 		
 		JPanel panel_3 = new JPanel();
 		panel.add(panel_3, BorderLayout.WEST);
@@ -166,6 +172,7 @@ public class CustomerHome extends JFrame {
 		box.add(center1);
 		
 		JButton singleRoom = new JButton(new ImageIcon("/Users/xic/Desktop/Java Final Assignment/Luton Hotel/Hotel Luton/bin/11.jpeg"));
+		singleRoom.setFocusable(false);
 		center1.add(singleRoom);
 		singleRoom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -176,6 +183,7 @@ public class CustomerHome extends JFrame {
 		});
 		
 		JButton doubleRoom = new JButton(new ImageIcon("/Users/xic/Desktop/Java Final Assignment/Luton Hotel/Hotel Luton/bin/3.jpeg"));
+		doubleRoom.setFocusable(false);
 		center1.add(doubleRoom);
 		doubleRoom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -186,6 +194,7 @@ public class CustomerHome extends JFrame {
 		});
 		
 		JButton twinRoom = new JButton(new ImageIcon("/Users/xic/Desktop/Java Final Assignment/Luton Hotel/Hotel Luton/bin/8.jpeg"));
+		twinRoom.setFocusable(false);
 		center1.add(twinRoom);
 		twinRoom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -202,6 +211,7 @@ public class CustomerHome extends JFrame {
 		box.add(center2);
 		
 		JButton singleBtn = new JButton("Single Room");
+		singleBtn.setFocusable(false);
 		singleBtn.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		singleBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -213,6 +223,7 @@ public class CustomerHome extends JFrame {
 		center2.add(singleBtn);
 		
 		JButton doubleBtn = new JButton("Double Room");
+		doubleBtn.setFocusable(false);
 		doubleBtn.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		doubleBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -224,6 +235,7 @@ public class CustomerHome extends JFrame {
 		center2.add(doubleBtn);
 		
 		JButton twinBtn = new JButton("Twin Room");
+		twinBtn.setFocusable(false);
 		twinBtn.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		twinBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -241,6 +253,7 @@ public class CustomerHome extends JFrame {
 		box.add(center3);
 				
 		JButton bookNow = new JButton("BOOK NOW");
+		bookNow.setFocusable(false);
 		bookNow.setFont(new Font("Lucida Grande", Font.BOLD, 22));
 		bookNow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -252,6 +265,7 @@ public class CustomerHome extends JFrame {
 		center3.add(bookNow);
 		
 		JButton viewBooking = new JButton("View Bookings");
+		viewBooking.setFocusable(false);
 		viewBooking.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		viewBooking.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -263,6 +277,7 @@ public class CustomerHome extends JFrame {
 		center3.add(viewBooking);
 		
 		JButton cancel = new JButton("Cancel Booking");
+		cancel.setFocusable(false);
 		cancel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -48,39 +48,34 @@ public class LastPage extends JFrame {
 		setContentPane(contentPane);
 		
 		JPanel panel = new JPanel();
-		contentPane.add(panel);
 		panel.setLayout(null);
+		contentPane.add(panel);
 		
 		JPanel center = new JPanel();
 		center.setBounds(0, 0, 510, 360);
-		panel.add(center);
 		center.setLayout(null);
+		panel.add(center);
 		
 		JLabel message1 = new JLabel("Thank You For");
 		message1.setBounds(180, 75, 139, 25);
-		center.add(message1);
 		message1.setBackground(new Color(51, 51, 255));
 		message1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		center.add(message1);
 		
-				JLabel message2 = new JLabel("Chosing");
-				message2.setBounds(210, 115, 78, 25);
-				center.add(message2);
-				message2.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-				
+		JLabel message2 = new JLabel("Chosing");
+		message2.setBounds(210, 115, 78, 25);
+		message2.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		center.add(message2);
+		
 		JLabel message3 = new JLabel("Hotel Luton");
 		message3.setBounds(190, 155, 111, 25);
-		center.add(message3);
 		message3.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		center.add(message3);
 		
 		JButton home = new JButton("Go To Home");
-		home.setBackground(Color.WHITE);
-		home.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		home.setFocusable(false);
 		home.setBounds(170, 230, 150, 29);
-		center.add(home);
-		
-		JLabel pic = new JLabel(new ImageIcon("/Users/xic/Desktop/Java Final Assignment/Luton Hotel/Hotel Luton/bin/Background.jpeg"));
-		pic.setBounds(5, 5, 488, 315);
-		center.add(pic);
+		home.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		home.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -90,6 +85,12 @@ public class LastPage extends JFrame {
 				dispose();
 			}
 		});
+		center.add(home);
+		
+		JLabel pic = new JLabel(new ImageIcon("/Users/xic/Desktop/Java Final Assignment/Luton Hotel/Hotel Luton/bin/Background.jpeg"));
+		pic.setBounds(5, 5, 488, 315);
+		center.add(pic);
+		
 	}
 
 }

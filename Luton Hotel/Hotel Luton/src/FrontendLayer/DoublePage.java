@@ -58,6 +58,7 @@ public class DoublePage extends JFrame {
 		panel.add(panel_2, BorderLayout.EAST);
 
 		JButton home = new JButton("Home");
+		home.setFocusable(false);
 		home.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CustomerHome home = new CustomerHome();
@@ -68,6 +69,7 @@ public class DoublePage extends JFrame {
 		panel_2.add(home);
 		
 		JButton gallery = new JButton("Gallery");
+		gallery.setFocusable(false);
 		gallery.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Gallery galler = new Gallery();
@@ -78,7 +80,7 @@ public class DoublePage extends JFrame {
 		panel_2.add(gallery);
 		
 		JButton aboutUs = new JButton("About Us");
-		panel_2.add(aboutUs);
+		aboutUs.setFocusable(false);
 		aboutUs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AboutUs abou = new AboutUs();
@@ -86,9 +88,10 @@ public class DoublePage extends JFrame {
 				dispose();
 			}
 		});
+		panel_2.add(aboutUs);
 		
 		JButton contactUs = new JButton("Contact Us");
-		panel_2.add(contactUs);
+		contactUs.setFocusable(false);
 		contactUs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			ContactUs conU = new ContactUs();
@@ -96,9 +99,10 @@ public class DoublePage extends JFrame {
 			dispose();
 			}
 		});
+		panel_2.add(contactUs);
 		
 		JButton profile = new JButton("Profile");
-		panel_2.add(profile);
+		profile.setFocusable(false);
 		profile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Profile pof = new Profile();
@@ -106,9 +110,10 @@ public class DoublePage extends JFrame {
 				dispose();
 			}
 		});
+		panel_2.add(profile);
 		
 		JButton logout = new JButton("Log Out");
-		panel_2.add(logout);
+		logout.setFocusable(false);
 		logout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(JOptionPane.showConfirmDialog(logout, "Are You Sure You Want To Log Out???", "LOGOUT",
@@ -121,6 +126,7 @@ public class DoublePage extends JFrame {
 				}
 			}
 		});
+		panel_2.add(logout);
 
 		JPanel panel_3 = new JPanel();
 		panel.add(panel_3, BorderLayout.WEST);
@@ -268,6 +274,7 @@ public class DoublePage extends JFrame {
 		box.add(center3);
 				
 		JButton bookNow = new JButton("BOOK NOW");
+		bookNow.setFocusable(false);
 		bookNow.setFont(new Font("Lucida Grande", Font.BOLD, 22));
 		bookNow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -279,19 +286,25 @@ public class DoublePage extends JFrame {
 		center3.add(bookNow);
 		
 		JButton viewBooking = new JButton("View Bookings");
+		viewBooking.setFocusable(false);
 		viewBooking.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		viewBooking.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				ViewBooking vb = new ViewBooking();
+				vb.setVisible(true);
+				dispose();
 			}
 		});
 		center3.add(viewBooking);
 		
 		JButton cancel = new JButton("Cancel Booking");
+		cancel.setFocusable(false);
 		cancel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				ViewBooking vb = new ViewBooking();
+				vb.setVisible(true);
+				dispose();
 			}
 		});
 		center3.add(cancel);
