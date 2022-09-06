@@ -1,0 +1,279 @@
+package DatabaseLayer;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import javax.swing.JOptionPane;
+
+import FrontendLayer.CustomerHome;
+import FrontendLayer.Gallery;
+import FrontendLayer.Main;
+import FrontendLayer.Profile;
+import Helper.DatabaseConnector;
+import Models.CorporateCustomer;
+import Models.IndividualCustomer;
+import Models.Login;
+import Models.Staff;
+
+public class DLLogin {
+
+	//declaring variables
+	private Login log;
+	private DatabaseConnector db;
+	private Connection connection;
+	public static int foreignKey;
+	
+
+	public DLLogin() throws Exception {
+		this.log = new Login();
+		try {
+			this.db = DatabaseConnector.getInstance();
+			this.connection = this.db.getConnection();
+		}catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
+	public DLLogin(Login log) throws Exception{
+		this.log = log;
+		try {
+			this.db = DatabaseConnector.getInstance();
+			this.connection = this.db.getConnection();
+		}catch (Exception ex) {
+			throw ex;
+		}
+	}
+
+	public Login getLog() {
+		return log;
+	}
+
+	public void setLog(Login log) {
+		this.log = log;
+	}
+	
+
+	//method to insert data into login table 
+	public Login register() throws Exception {
+
+		try {
+			
+			if(same()) {
+				
+				//preparing to insert the data entered
+				String generatedColumns[] = {"id"};
+				
+				//creating query to insert data
+				String query = "INSERT INTO login(email, password) VALUES(?,?)";
+				PreparedStatement statement = this.connection.prepareStatement(query, generatedColumns);
+				statement.setString(1,this.log.getEmail());
+				statement.setString(2,this.log.getPassword());
+				
+				//query execution
+				int noOfUpdate = statement.executeUpdate();
+				if(noOfUpdate > 0) {
+					ResultSet rs = statement.getGeneratedKeys();
+					if(rs.next()) {
+						int id = rs.getInt(1);
+						this.log.setUserId(id);
+						foreignKey = this.log.getUserId();
+					}
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Email already used...");
+			}
+			return this.log;
+		}catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
+
+	/*
+	 * checking for the same data entries
+	 */
+	private boolean same() throws Exception{
+		
+		//generating query
+		String query = "SELECT * FROM LOGIN WHERE Email = ?";
+		try {
+			PreparedStatement statement = this.connection.prepareStatement(query);
+			statement.setString(1, this.log.getEmail());
+			
+			//executes the query
+			ResultSet rs = statement.executeQuery();
+			
+			//checking no. of result
+			if(rs.next()) {
+				return false;
+			}
+		}catch (Exception ex) {
+			throw ex;
+		}
+		return true;
+	}
+	
+	/*
+	 * search for the entered data
+	 * compares the data entered with the information in the database
+	 */
+	public Login login() throws Exception{
+		
+		//generationg query
+		String query = "SELECT * FROM LOGIN WHERE Email = ? AND Password = ?";
+		try {
+			PreparedStatement statement = this.connection.prepareStatement(query);
+			statement.setString(1, this.log.getEmail());
+			statement.setString(2, this.log.getPassword());
+			
+			//executes the query
+			ResultSet rs = statement.executeQuery();
+			
+			//checking no. of result
+			if(rs.next()) {
+
+				this.log.setUserId(rs.getInt("id"));
+				
+				//validating the type of user
+				if(individual()) {
+					
+					//opening corresponding page
+					Main.contentPane.removeAll();
+					CustomerHome home = new CustomerHome();
+					home.setVisible(true);
+				}
+				
+				//validating user type
+				if(corporate()) {
+					
+					//opening corresponding page
+					Main.contentPane.removeAll();
+					Gallery gag = new Gallery();
+					gag.setVisible(true);
+				}
+				
+				if(staff()) {
+
+					/*
+					 * inserting data into staff model
+					 */
+					Staff sf = new Staff();
+					sf.setStaffId(rs.getInt("Staff_Id"));
+					sf.setfName(rs.getString("First_Name"));
+					sf.setlName(rs.getString("Last_Name"));
+					sf.setDateOfBirth(rs.getString("DOB"));
+					sf.setContact(rs.getString("Contact_No"));
+					sf.setAddress(rs.getString("Address"));
+					sf.setDesignation(rs.getString("Designation"));
+					
+					//opening corresponding page
+					Main.contentPane.removeAll();
+					Profile pop = new Profile();
+					pop.setVisible(true);
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Invaild email or password", "Login Error", 2);
+			}
+		}catch (Exception ex) {
+			throw ex;
+		}
+		return log;
+	}
+	
+	/*
+	 * checking for the user type
+	 * it checks for individual customer
+	 */
+	private boolean individual() throws Exception {
+		String query = "SELECT * FROM individualcustomer i, login l WHERE i.user_Id = ?";
+		try {
+			PreparedStatement statement = this.connection.prepareStatement(query);
+			statement.setInt(1, this.log.getUserId());
+			
+			//executes the query
+			ResultSet rs1 = statement.executeQuery();
+			
+			if(rs1.next()) {
+
+				//returning value
+				return true;
+			}
+		}catch (Exception ex) {
+			throw ex;
+		}return false;
+	}
+
+	/*
+	 * checking for the user type
+	 * it checks for individual customer
+	 */
+	private boolean corporate() throws Exception {
+		String query = "SELECT * FROM corporatecustomer c, login l WHERE c.user_Id = ?";
+		try {
+			PreparedStatement statement = this.connection.prepareStatement(query);
+			statement.setInt(1, this.log.getUserId());
+			
+			//executes the query
+			ResultSet rs = statement.executeQuery();
+			
+			if(rs.next()) {
+
+				/*
+				 * inserting data into Corporate Customer model
+				 */
+				CorporateCustomer cc = new CorporateCustomer();
+				cc.setRegistrationNo(rs.getInt("Registration_No"));
+				cc.setCompanyName(rs.getString("Company_Name"));
+				cc.setContact(rs.getString("Contact_No"));
+				cc.setAddress(rs.getString("Address"));
+				cc.setDiscountDiscussed(rs.getInt("Discount_Discussed"));
+				cc.setDiscountYear(rs.getString("Discount_Year"));
+
+				return true;
+			}
+		}catch (Exception ex) {
+			throw ex;
+		}return false;
+	}
+	
+	/*
+	 * checking for the user type
+	 * it checks for individual customer
+	 */
+	private boolean staff() throws Exception {
+		String query = "SELECT * FROM staff c, login l WHERE s.user_Id = ?";
+		try {
+			PreparedStatement statement = this.connection.prepareStatement(query);
+			statement.setInt(1, this.log.getUserId());
+
+			//executes the query
+			ResultSet rs1 = statement.executeQuery();
+			
+			if(rs1.next()) {
+
+				/*
+				 * inserting data into Individual Customer model
+				 */
+				IndividualCustomer ic = new IndividualCustomer();
+				ic.setCustomerId(rs1.getInt("Customer_Id"));
+				ic.setfName(rs1.getString("First_Name"));
+				ic.setlName(rs1.getString("Last_Name"));
+				ic.setDateOfBirth(rs1.getString("DOB"));
+				ic.setContact(rs1.getString("Contact_No"));
+				ic.setAddress(rs1.getString("Address"));
+				ic.setPostalCode(rs1.getInt("Postal_Code"));
+				ic.setCreditCardNo(rs1.getString("Credit_Card_No"));
+				ic.setExpDate(rs1.getString("Expiry_Date"));
+
+				return true;
+			}
+		}catch (Exception ex) {
+			throw ex;
+		}return false;
+			
+	}
+
+}

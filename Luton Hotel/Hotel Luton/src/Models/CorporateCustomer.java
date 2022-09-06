@@ -7,22 +7,27 @@ public class CorporateCustomer {
 	private String contact;
 	private String address;
 	private int discountDiscussed;
+	private String discountYear;
 	
 	
 	public CorporateCustomer() {
 		this.customerId = 0;
+		this.registrationNo = 0;
+		this.companyName = "";
 		this.contact = "";
 		this.address = "";
 		this.discountDiscussed = 0;
+		this.discountYear = "";
 	}
 	
-	public CorporateCustomer(int id, int registrationNo, String companyName, String contact, String address, int discussedDiscount) {
+	public CorporateCustomer(int id, int registrationNo, String companyName, String contact, String address, int discussedDiscount, String discountYear) {
 		this.customerId = id;
 		this.registrationNo = registrationNo;
 		this.companyName = companyName;
 		this.contact = contact;
 		this.address = address;
 		this.discountDiscussed = discussedDiscount;
+		this.discountYear = discountYear;
 	}
 
 	public int getCustomerId() {
@@ -71,6 +76,14 @@ public class CorporateCustomer {
 
 	public void setDiscountDiscussed(int discountDiscussed) {
 		this.discountDiscussed = discountDiscussed;
+	}
+
+	public String getDiscountYear() {
+		return discountYear;
+	}
+
+	public void setDiscountYear(String discountYear) {
+		this.discountYear = discountYear;
 	}
 
 }

@@ -1,0 +1,71 @@
+package BusinessLayer;
+
+
+import DatabaseLayer.DLLogin;
+import Helper.InputException;
+import Models.Login;
+
+public class BLLogin {
+
+	//declaring variable
+	private Login log;
+
+	public BLLogin() {
+		this.log = new Login();
+	}
+
+	public Login getLog() {
+		return log;
+	}
+
+	public void setLog(Login log) throws Exception{
+		try {
+			if(this.ValidateLogin(log)) {
+				this.log = log;
+			}
+		}catch (Exception ex) {
+			throw ex;
+		}	
+	}
+	
+	private boolean ValidateLogin(Login log) throws InputException {
+		if(log.getEmail() == null || log.getEmail().length()==0){
+			throw new InputException("Email cannot be empty.");
+		}
+		if(log.getPassword() == null || log.getPassword().length()==0){
+			throw new InputException("Password cannot be empty.");
+		}
+		return true;
+	}
+	
+	public Login login() throws Exception{
+		try {
+			DLLogin dlLogin = new DLLogin(this.log);
+			return dlLogin.login();
+		}catch (Exception e) {
+			throw e;
+		}
+	}
+
+	public void registerValidation(Login log, String conPass) throws InputException{
+		if(log.getEmail() == null || log.getEmail().length()==0){
+			throw new InputException("Email cannot be empty.");
+		}
+		if(log.getPassword() == null || log.getPassword().length()==0){
+			throw new InputException("Password cannot be empty.");
+		}
+		if(conPass != log.getPassword()) {
+			throw new InputException("Password not matched.");
+		}
+		this.log = log;
+	}
+
+	public void register() {
+		try {
+			DLLogin dlLogin = new DLLogin()
+		}
+		
+	}
+	
+	
+}

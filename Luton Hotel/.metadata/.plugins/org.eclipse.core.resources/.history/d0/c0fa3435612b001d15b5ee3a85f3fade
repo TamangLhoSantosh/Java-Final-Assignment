@@ -1,0 +1,187 @@
+package FrontendLayer;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import Models.IndividualCustomer;
+import javax.swing.BoxLayout;
+
+public class Profile extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Profile frame = new Profile();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Profile() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1920, 1080);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		
+		JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.NORTH);
+		validate();
+		panel.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel2 = new JPanel();
+		panel.add(panel2, BorderLayout.EAST);
+
+		JButton home = new JButton("Home");
+		home.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CustomerHome home = new CustomerHome();
+				home.setVisible(true);
+				dispose();
+			}
+		});
+		panel2.add(home);
+		
+		JButton gallery = new JButton("Gallery");
+		gallery.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Gallery galler = new Gallery();
+				galler.setVisible(true);
+				dispose();
+			}
+		});
+		panel2.add(gallery);
+		
+		JButton aboutUs = new JButton("About Us");
+		panel2.add(aboutUs);
+		aboutUs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AboutUs abou = new AboutUs();
+				abou.setVisible(true);
+				dispose();
+			}
+		});
+		
+		JButton contactUs = new JButton("Contact Us");
+		panel2.add(contactUs);
+		contactUs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			ContactUs conU = new ContactUs();
+			conU.setVisible(true);
+			dispose();
+			}
+		});
+		
+		JButton profile = new JButton("Profile");
+		panel2.add(profile);
+		profile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Profile pof = new Profile();
+				pof.setVisible(true);
+				dispose();
+			}
+		});
+		
+		JButton logout = new JButton("Log Out");
+		panel2.add(logout);
+		
+		JPanel panel1 = new JPanel();
+		panel.add(panel1, BorderLayout.WEST);
+		
+		JLabel logo = new JLabel("");
+		logo.setIcon(new ImageIcon("/Users/xic/Desktop/Java Final Assignment/Luton Hotel/Hotel Luton/bin/logo.jpeg"));
+		logo.setHorizontalAlignment(SwingConstants.CENTER);
+		panel1.add(logo);
+		logout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(JOptionPane.showConfirmDialog(logout, "Are You Sure You Want To Log Out???", "LOGOUT",
+						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION)
+				{
+					Main window = new Main();
+					window.setVisible(true);
+					dispose();
+					
+				}
+			}
+		});
+		
+		JPanel center = new JPanel();
+		contentPane.add(center, BorderLayout.CENTER);
+		
+		JPanel box1 = new JPanel();
+		center.add(box1);
+		box1.setLayout(new BoxLayout(box1, BoxLayout.X_AXIS));
+		
+		JLabel namelb = new JLabel("Name");
+		box1.add(namelb);
+		
+		JLabel dateoblb = new JLabel("Date Of Birth");
+		box1.add(dateoblb);
+		
+		JLabel contactlb = new JLabel("Contact No");
+		box1.add(contactlb);
+		
+		JLabel addresslb = new JLabel("Address");
+		box1.add(addresslb);
+		
+		JLabel postalb = new JLabel("Postal Code");
+		box1.add(postalb);
+		
+		JLabel creditlb = new JLabel("Credit Card No");
+		box1.add(creditlb);
+		
+		JLabel explb = new JLabel("Expiry Date");
+		box1.add(explb);
+		
+		JPanel box2 = new JPanel();
+		center.add(box2);
+		box2.setLayout(new BoxLayout(box2, BoxLayout.X_AXIS));
+		
+		JLabel name = new JLabel();
+		box2.add(name);
+		
+		JLabel dateob = new JLabel();
+		box2.add(dateob);
+		
+		JLabel contact =new JLabel();
+		box2.add(contact);
+		
+		JLabel address = new JLabel();
+		box2.add(address);
+		
+		JLabel postal = new JLabel();
+		box2.add(postal);
+		
+		JLabel credit = new JLabel();
+		box2.add(credit);
+		
+		JLabel exp = new JLabel();
+		box2.add(exp);
+	}
+
+}

@@ -30,7 +30,7 @@ public class BLCorporateCust {
 	}
 	
 	//validates the corporate customer details
-	private boolean validateCorporateCust(CorporateCustomer corporrateCust) throws InputException {
+	private boolean validateCorporateCust(CorporateCustomer corporateCust) throws InputException {
 		if(corporateCust.getRegistrationNo() == 0) {
 			throw new InputException("Company registration no cannot be empty.");
 		}
@@ -46,14 +46,15 @@ public class BLCorporateCust {
 		if(corporateCust.getDiscountDiscussed() == 0) {
 			throw new InputException("Company discount discussed cannot be empty.");
 		}
+		
 		return true;
 	}
 	
 	//saves the corporate customer details in the database
-	public CorporateCustomer save() throws Exception{
+	public CorporateCustomer register() throws Exception{
 		try {
 			DLCorporateCust dlCorporrateCust = new DLCorporateCust(this.corporateCust);
-			return dlCorporrateCust.save();
+			return dlCorporrateCust.register();
 		}catch (Exception e) {
 			throw e;
 		}

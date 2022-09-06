@@ -8,6 +8,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
+import FrontendLayer.LoginPage;
+import FrontendLayer.Main;
 import Helper.DatabaseConnector;
 import Models.CorporateCustomer;
 
@@ -48,49 +52,88 @@ public class DLCorporateCust {
 	}
 	
 	//method to insert data into 
-	public CorporateCustomer save() throws Exception {
+	public CorporateCustomer register() throws Exception {
 		try {
-			
-			//preparing to insert the data entered
-			String generatedColumns[] = {"id", "registrationNo", "companyName", "contact", "address", "discountDiscussed"};
-			
-			//creating query to insert data
-			String query = "INSERT INTO corporatecustomer(registrationNo, companyName, contact, address, discountDiscussed VALUES(?,?,?,?,?)";
-			PreparedStatement statement =this.connection.prepareStatement(query, generatedColumns);
-			statement.setInt(1,this.corporateCust.getRegistrationNo());
-			statement.setString(2,this.corporateCust.getCompanyName());
-			statement.setString(4,this.corporateCust.getContact());
-			statement.setString(5,this.corporateCust.getAddress());
-			statement.setInt(6,this.corporateCust.getDiscountDiscussed());
-			
-			//query execution
-			int noOfUpdate = statement.executeUpdate();
-			if(noOfUpdate > 0) {
-				ResultSet rs = statement.getGeneratedKeys();
-				if(rs.next()) {
-					int id = rs.getInt(1);
-					this.corporateCust.setCustomerId(id);
+
+			if(same()) {
+				//preparing to insert the data entered
+				String generatedColumns[] = {"id"};
+				
+				//creating query to insert data
+				String query = "INSERT INTO corporatecustomer(Registration_No, Company_Name, Contact_No, Address, Discount_Discussed, Discount_Year, User_Id) VALUES(?,?,?,?,?,?,?)";
+				PreparedStatement statement =this.connection.prepareStatement(query, generatedColumns);
+				statement.setInt(1,this.corporateCust.getRegistrationNo());
+				statement.setString(2,this.corporateCust.getCompanyName());
+				statement.setString(3,this.corporateCust.getContact());
+				statement.setString(4,this.corporateCust.getAddress());
+				statement.setInt(5,this.corporateCust.getDiscountDiscussed());
+				statement.setString(6,this.corporateCust.getDiscountYear());
+				statement.setInt(7, DLLogin.foreignKey);
+				
+				//query execution
+				int noOfUpdate = statement.executeUpdate();
+				if(noOfUpdate > 0) {
+					ResultSet rs = statement.getGeneratedKeys();
+					if(rs.next()) {
+						int id = rs.getInt(1);
+						this.corporateCust.setCustomerId(id);
+
+		                JOptionPane.showMessageDialog(null,"Account created");
+		                JOptionPane.showMessageDialog(null,"Proceed With Login");
+						Main.contentPane.removeAll();
+						Main.contentPane.add(new LoginPage()).setVisible(true);
+					}
 				}
 			}
-			return this.corporateCust;
+
+		}catch (Exception ex) {
+			throw ex;
+		}				
+		return this.corporateCust;
+
+	}
+	
+
+	/*
+	 * checking for the same data entries
+	 */
+	private boolean same() throws Exception{
+		
+		//generating query
+		String query = "SELECT * FROM corporatecustomer WHERE registration_no = ? AND company_name = ?";
+		try {
+			PreparedStatement statement = this.connection.prepareStatement(query);
+			statement.setInt(1, this.corporateCust.getRegistrationNo());
+			statement.setString(2, this.corporateCust.getCompanyName());
+			
+			//executes the query
+			ResultSet rs = statement.executeQuery();
+			
+			//checking no. of result
+			if(rs.next()) {
+				return false;
+			}
 		}catch (Exception ex) {
 			throw ex;
 		}
+		return true;
 	}
-	
+
 	//method to update the data
 	public CorporateCustomer update() throws Exception{
 		try {
 			
 			//creating query to updated data 
-			String query = "Update corporatecustomer SET fName = ?, lName = ?, dateOfBirth = ?, contact = ?, address = ?, designation = ? WHERE id = ?";
+			String query = "Update corporatecustomer SET Registration_No = ?, Company_Name = ?, Contact = ?, Address = ?, Discount_Disussed = ?, Discount_Year = ?, User_Id = ? WHERE id = ?";
 			PreparedStatement statement = this.connection.prepareStatement(query);
-			statement.setInt(1, this.corporateCust.getRegistrationNo());
-			statement.setString(2, this.corporateCust.getCompanyName());
-			statement.setString(4, this.corporateCust.getContact());
-			statement.setString(5, this.corporateCust.getAddress());
-			statement.setInt(6, this.corporateCust.getDiscountDiscussed());
-		
+			statement.setInt(1,this.corporateCust.getRegistrationNo());
+			statement.setString(2,this.corporateCust.getCompanyName());
+			statement.setString(3,this.corporateCust.getContact());
+			statement.setString(4,this.corporateCust.getAddress());
+			statement.setInt(5,this.corporateCust.getDiscountDiscussed());
+			statement.setString(6,this.corporateCust.getDiscountYear());
+			statement.setInt(7, DLLogin.foreignKey);
+			
 			//executing query
 			statement.executeUpdate();
 			return this.corporateCust;
@@ -104,7 +147,7 @@ public class DLCorporateCust {
 		try {
 			
 			//creating query to delete data
-			String query = "DELETE FREOM staff WHERE id = ?";
+			String query = "DELETE FREOM corporateCustomer WHERE id = ?";
 			PreparedStatement statement = this.connection.prepareStatement(query);
 			statement.setInt(1,corporateCust.getCustomerId());
 			

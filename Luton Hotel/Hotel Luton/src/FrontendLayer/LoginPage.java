@@ -19,28 +19,29 @@ import javax.swing.JPasswordField;
 public class LoginPage extends JInternalFrame {
 
 	private static final long serialVersionUID = 2L;
-	public static JTextField email;
-	public static JPasswordField password;
+	private static JTextField email;
+	private static JPasswordField password;
 
 	
 	/**
 	 * Create the frame.
 	 */
 	public LoginPage() {
-		setBackground(Color.CYAN);
 		setResizable(true);
 		setClosable(true);
 		setBounds(100, 100, 550, 300);
 		
-		JPanel panel_2 = new JPanel();
-		getContentPane().add(panel_2, BorderLayout.SOUTH);
+		JPanel panel1 = new JPanel();
+		getContentPane().add(panel1, BorderLayout.SOUTH);
 		
-		JLabel lblNewLabel = new JLabel("Not Registered Yet???");
-		panel_2.add(lblNewLabel);
+		JLabel not = new JLabel("Not Registered Yet???");
+		panel1.add(not);
 		
 		JButton registerbtn = new JButton("Register Now");
-		panel_2.add(registerbtn);
+		panel1.add(registerbtn);
 		registerbtn.addActionListener(new ActionListener() {
+			
+			//opens register page
 			public void actionPerformed(ActionEvent e) {
 				Main.contentPane.removeAll();
 				Main.contentPane.add(new RegisterPage()).setVisible(true);
@@ -48,11 +49,11 @@ public class LoginPage extends JInternalFrame {
 		});
 		registerbtn.setBackground(Color.GREEN);
 		
-		JPanel panel_1 = new JPanel();
-		getContentPane().add(panel_1, BorderLayout.NORTH);
+		JPanel panel2 = new JPanel();
+		getContentPane().add(panel2, BorderLayout.NORTH);
 		
 		JLabel sign = new JLabel("Welcome To Hotel Luton");
-		panel_1.add(sign);
+		panel2.add(sign);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);
@@ -76,25 +77,38 @@ public class LoginPage extends JInternalFrame {
 		password.setBounds(250, 95, 185, 26);
 		panel.add(password);
 		
-		JButton loginbtn_1 = new JButton("Login");
-		loginbtn_1.addActionListener(new ActionListener() {
+		JButton loginbtn = new JButton("Login");
+		loginbtn.setBackground(Color.GREEN);
+		loginbtn.setBounds(216, 142, 117, 29);
+		panel.add(loginbtn);
+		loginbtn.addActionListener(new ActionListener() {
+			
+			//calls login method
 			public void actionPerformed(ActionEvent e) {
-				Login();
+				login();
 			}
 		});
-		loginbtn_1.setBackground(Color.GREEN);
-		loginbtn_1.setBounds(216, 142, 117, 29);
-		panel.add(loginbtn_1);
 		
 	}
-	private static void Login(){
+	
+	/* 
+	 * method that read data from form and sends to the models
+	 * reads data from model to bl for validaation
+	 * sends validated data to dl for comparing data with the information in database
+	 */
+	
+	private static void login(){
 		try {
+			
+			//creating and initializing new object
 			Login log = new Login();
 			log.setEmail(LoginPage.email.getText());
 			log.setPassword(String.valueOf(password.getPassword()));
+
+			//creating and initializing new object
 			BLLogin blLogin = new BLLogin();
-			blLogin.ValidateLogin(log);
-			blLogin.login(log);
+			blLogin.setLog(log);
+			blLogin.login();
 		}catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, ex.getMessage());
 		}

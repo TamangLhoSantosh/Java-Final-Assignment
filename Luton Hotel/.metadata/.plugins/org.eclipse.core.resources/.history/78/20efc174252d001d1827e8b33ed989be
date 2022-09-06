@@ -1,0 +1,60 @@
+package FrontendLayer;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.BoxLayout;
+
+public class UpdateBooking extends JInternalFrame {
+
+	private static final long serialVersionUID = -7875460471440528401L;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					UpdateBooking frame = new UpdateBooking();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public UpdateBooking() {
+		setBounds(100, 100, 750, 600);
+		
+		JPanel panel = new JPanel();
+		getContentPane().add(panel, BorderLayout.CENTER);
+		
+				JPanel center = new JPanel();
+				panel.add(center);
+				
+				JPanel box = new JPanel();
+				center .add(box);
+				box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
+				
+				JLabel arrivaldlb = new JLabel("Arrival Date");
+				box.add(arrivaldlb);
+				
+				JPanel empty = new JPanel();
+				box.add(empty);
+				
+				JLabel departuredlb = new JLabel("Departure Date");
+				box.add(departuredlb);
+				
+				JLabel roomTypelb = new JLabel("Room Type");
+				box.add(roomTypelb);
+	}
+
+}

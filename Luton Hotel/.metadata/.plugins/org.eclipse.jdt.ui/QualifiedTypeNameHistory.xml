@@ -1,12 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="javax.swing.JPanel"/>
     <fullyQualifiedTypeName name="javax.swing.JDesktopPane"/>
     <fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
-    <fullyQualifiedTypeName name="Models.Login"/>
     <fullyQualifiedTypeName name="DatabaseLayer.DLLogin"/>
     <fullyQualifiedTypeName name="FrontendLayer.CustomerHome"/>
-    <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
     <fullyQualifiedTypeName name="BusinessLayer.BLLogin"/>
+    <fullyQualifiedTypeName name="BusinessLayer.BLIndividualCust"/>
+    <fullyQualifiedTypeName name="FrontendLayer.RegisterPage"/>
+    <fullyQualifiedTypeName name="java.awt.FlowLayout"/>
+    <fullyQualifiedTypeName name="Models.Login"/>
+    <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+    <fullyQualifiedTypeName name="javax.swing.BoxLayout"/>
+    <fullyQualifiedTypeName name="java.awt.Font"/>
+    <fullyQualifiedTypeName name="java.awt.Color"/>
+    <fullyQualifiedTypeName name="java.awt.Image"/>
+    <fullyQualifiedTypeName name="FrontendLayer.Profile"/>
+    <fullyQualifiedTypeName name="FrontendLayer.Gallery"/>
+    <fullyQualifiedTypeName name="Models.CorporateCustomer"/>
+    <fullyQualifiedTypeName name="Models.Staff"/>
+    <fullyQualifiedTypeName name="javax.swing.JTextPane"/>
+    <fullyQualifiedTypeName name="javax.swing.JCheckBox"/>
+    <fullyQualifiedTypeName name="javax.swing.JRadioButton"/>
     <fullyQualifiedTypeName name="FrontendLayer.LoginPage"/>
+    <fullyQualifiedTypeName name="Models.IndividualCustomer"/>
+    <fullyQualifiedTypeName name="javax.swing.table.DefaultTableModel"/>
+    <fullyQualifiedTypeName name="BusinessLayer.BLBooking"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="Models.Booking"/>
+    <fullyQualifiedTypeName name="FrontendLayer.Main"/>
+    <fullyQualifiedTypeName name="FrontendLayer.BookingPage"/>
+    <fullyQualifiedTypeName name="javax.swing.JScrollPane"/>
+    <fullyQualifiedTypeName name="FrontendLayer.ViewBooking"/>
+    <fullyQualifiedTypeName name="javax.swing.JPanel"/>
+    <fullyQualifiedTypeName name="javax.swing.JLabel"/>
+    <fullyQualifiedTypeName name="javax.swing.JTextField"/>
+    <fullyQualifiedTypeName name="javax.swing.JButton"/>
+    <fullyQualifiedTypeName name="FrontendLayer.StaffHome"/>
 </qualifiedTypeNameHistroy>

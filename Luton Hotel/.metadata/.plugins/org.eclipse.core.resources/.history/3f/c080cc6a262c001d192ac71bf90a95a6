@@ -1,0 +1,91 @@
+package BusinessLayer;
+
+import DatabaseLayer.DLLogin;
+import Helper.InputException;
+import Models.Booking;
+
+public class BLBooking {
+
+	//declaring variable
+	private Booking book;
+
+	public BLBooking() {
+		this.book = new Booking();
+	}
+
+	public Booking getLog() {
+		return book;
+	}
+
+	//setting data
+	public void setBook(Booking book) throws Exception{
+		try {
+			if(this.ValidateBooking(book)) {
+				this.book = book;
+			}
+		}catch (Exception ex) {
+			throw ex;
+		}	
+	}
+	
+	/*
+	 * provides true or false value
+	 * validation during login
+	 * the email and password cannot be empty.
+	 */
+	private boolean ValidateBooking(Booking book) throws InputException {
+		if(book.getArrivalDate() == null || book.getArrivalDate().length()==0){
+			throw new InputException("Email cannot be empty.");
+		}
+		if(book.getDepartureDate() == null || book.getDepartureDate().length()==0){
+			throw new InputException("Password cannot be empty.");
+		}
+		return true;
+	}
+	
+	//connecting with database
+	public Booking book() throws Exception{
+		try {
+			
+			//creating new object and initializing it
+			DLLogin dlLogin = new DLLogin(this.log);
+			return dlLogin.login();
+		}catch (Exception e) {
+			throw e;
+		}
+	}
+
+	/*
+	 * validates the data enterd during registration
+	 */
+	public void registerValidation(Booking book, String conPass) throws InputException{
+		if(log.getEmail() == null || log.getEmail().length()==0){
+			throw new InputException("Email cannot be empty.");
+		}
+		if(log.getPassword() == null || log.getPassword().length()==0){
+			throw new InputException("Password cannot be empty.");
+		}
+		if(conPass.equals(log.getPassword())){
+		}
+		else {
+			throw new InputException("Password must be same.");
+		}
+		this.log = log;
+	}
+
+	/*
+	 * creates a link with dl
+	 * sends data to dl
+	 */
+	public Booking register() throws Exception {
+		try {
+			DLLogin dlLogin = new DLLogin(this.log);
+			return dlLogin.register();
+		}catch(Exception e) {
+			throw e;
+		}
+		
+	}
+	
+	
+}

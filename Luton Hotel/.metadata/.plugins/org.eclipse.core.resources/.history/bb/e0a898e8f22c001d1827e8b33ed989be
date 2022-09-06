@@ -1,0 +1,138 @@
+package FrontendLayer;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import BusinessLayer.BLBooking;
+import Models.Booking;
+
+import javax.swing.JDesktopPane;
+import java.awt.FlowLayout;
+import javax.swing.JScrollBar;
+import javax.swing.JTable;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import java.awt.Font;
+import java.util.ArrayList;
+
+public class ViewBooking extends JFrame {
+
+	private static final long serialVersionUID = 2239918392069997136L;
+	private JPanel contentPane;
+	private JTable table;
+	private DefaultTableModel model;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ViewBooking frame = new ViewBooking();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public ViewBooking() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1920, 1080);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		
+		JDesktopPane forjiFrame = new JDesktopPane();
+		contentPane.add(forjiFrame, BorderLayout.CENTER);
+		forjiFrame.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JPanel panel = new JPanel();
+		forjiFrame.add(panel);
+		
+		JPanel box = new JPanel();
+		panel.add(box);
+		box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
+		
+		JScrollBar forTable = new JScrollBar();
+		box.add(forTable);
+		
+		table = new JTable();
+		
+		model = new DefaultTableModel();
+		Object[] colsName = new Object[7];
+		colsName[0] = "Booking Date";
+		colsName[1] = "Room Type";
+		colsName[2] = "Arrival Date";
+		colsName[3] = "Departure Date";
+		colsName[4] = "Booking Verifired";
+		colsName[5] = "Booking Status";
+		colsName[6] = "Room Id";
+		
+		model.setColumnIdentifiers(colsName);
+
+		forTable.add(table);
+		
+		viewBooking();
+		
+		JPanel empty = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) empty.getLayout();
+		flowLayout.setVgap(20);
+		box.add(empty);
+		
+		JPanel btn = new JPanel();
+		FlowLayout flowLayout_1 = (FlowLayout) btn.getLayout();
+		flowLayout_1.setHgap(50);
+		flowLayout_1.setVgap(20);
+		box.add(btn);
+		
+		JButton update = new JButton("Update");
+		update.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		btn.add(update);
+		
+		JButton cancel = new JButton("Cancel");
+		cancel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		btn.add(cancel);
+		
+		JButton edit = new JButton("Edit");
+		edit.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		btn.add(edit);
+		
+	}
+	
+	public void viewBooking() {
+		try {
+			BLBooking book = new BLBooking();
+			ArrayList<Booking> bookings = book.viewBooking();
+			model.setRowCount(0);
+			
+			for(Booking booking : bookings) {
+				String[] row = {
+						booking.getBookingDate(),
+						booking.getRoomType(),
+						booking.getArrivalDate(),
+						booking.getBookingDate(),
+						booking.getBookingVerified(),
+						booking.getBookingStatus()		
+				};
+				model.addRow(row);
+				table.setModel(model);
+			}
+			
+		}catch (Exception ex) {
+		JOptionPane.showMessageDialog(null, ex.getMessage());
+		}
+	}
+}

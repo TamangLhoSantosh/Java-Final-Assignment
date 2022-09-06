@@ -9,7 +9,7 @@ import Helper.InputException;
 public class BLIndividualCust {
 
 
-	//declaring staff variable of staff type
+	//declaring staff variable of individualcusotmer type
 	private IndividualCustomer iCust;
 	
 	public BLIndividualCust() {
@@ -32,32 +32,39 @@ public class BLIndividualCust {
 	
 	//validates the individual customer details
 	private boolean validateIndividualCust(IndividualCustomer iCust) throws InputException {
+		
 		if(iCust.getfName() == null || iCust.getfName().length() == 0) {
-			throw new InputException("User first name cannot be empty.");
+			throw new InputException("Individual customer first name cannot be empty.");
 		}
 		if(iCust.getlName() == null || iCust.getlName().length() == 0) {
-			throw new InputException("User last name cannot be empty.");
+			throw new InputException("Individual customer last name cannot be empty.");
 		}
 		if(iCust.getDateOfBirth() == null || iCust.getDateOfBirth().length() == 0) {
-			throw new InputException("User date of birth cannot be empty.");
-		}
-		if(iCust.getPostalCode() == 0) {
-			throw new InputException("User postal code cannot be empty.");
+			throw new InputException("Individual customer date of birth cannot be empty.");
 		}
 		if(iCust.getContact() == null || iCust.getContact().length() == 0) {
-			throw new InputException("User contact cannot be empty.");
+			throw new InputException("Individual customer contact cannot be empty.");
 		}
 		if(iCust.getAddress() == null || iCust.getAddress().length() == 0) {
-			throw new InputException("User address cannot be empty.");
+			throw new InputException("Individual customer address cannot be empty.");
+		}
+		if(iCust.getPostalCode() == 0) {
+			throw new InputException("Individual customer postal code cannot be empty.");
+		}
+		if(iCust.getCreditCardNo() == null || iCust.getCreditCardNo().length() == 0) {
+			throw new InputException("Individual customer credit card no cannot be empty.");
+		}
+		if(iCust.getExpDate() == null || iCust.getExpDate().length() == 0) {
+			throw new InputException("Individual customer credit card expiry date cannot be empty.");
 		}
 		return true;
 	}
 	
 	//saves the individual customer details in the database
-	public IndividualCustomer save() throws Exception{
+	public IndividualCustomer register() throws Exception{
 		try {
 			DLIndividualCust dlICust = new DLIndividualCust(this.iCust);
-			return dlICust.save();
+			return dlICust.register();
 		}catch (Exception e) {
 			throw e;
 		}

@@ -7,6 +7,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
+import FrontendLayer.LoginPage;
+import FrontendLayer.Main;
 import Helper.DatabaseConnector;
 import Models.IndividualCustomer;
 
@@ -16,6 +20,7 @@ public class DLIndividualCust {
 	private IndividualCustomer iCust;
 	private DatabaseConnector db;
 	private Connection connection;
+	public static int foreignKey;
 	
 	public DLIndividualCust() throws Exception {
 		this.iCust = new IndividualCustomer();
@@ -46,20 +51,24 @@ public class DLIndividualCust {
 	}
 	
 	//method to insert data into 
-	public IndividualCustomer save() throws Exception {
+	public IndividualCustomer register() throws Exception {
 		try {
 			
 			//preparing to insert the data entered
-			String generatedColumns[] = {"id", "fName", "lName", "dateOfBirth", "contact", "address"};
+			String generatedColumns[] = {"id"};
 			
 			//creating query to insert data
-			String query = "INSERT INTO individualcustomer(fName,lName, dateOfBirth, contact, address) VALUES(?,?,?,?,?)";
+			String query = "INSERT INTO individualcustomer(First_Name, Last_Name, DOB, Contact_No, Address, Postal_Code, Credit_Card_No, Expiry_Date, User_ID) VALUES(?,?,?,?,?,?,?,?,?)";
 			PreparedStatement statement =this.connection.prepareStatement(query, generatedColumns);
 			statement.setString(1,this.iCust.getfName());
 			statement.setString(2,this.iCust.getlName());
 			statement.setString(3,this.iCust.getDateOfBirth());
 			statement.setString(4,this.iCust.getContact());
 			statement.setString(5,this.iCust.getAddress());
+			statement.setInt(6,this.iCust.getPostalCode());
+			statement.setString(7,this.iCust.getCreditCardNo());
+			statement.setString(8,this.iCust.getExpDate());
+			statement.setInt(9,DLLogin.foreignKey);
 			
 			//query execution
 			int noOfUpdate = statement.executeUpdate();
@@ -68,6 +77,12 @@ public class DLIndividualCust {
 				if(rs.next()) {
 					int id = rs.getInt(1);
 					this.iCust.setCustomerId(id);
+					foreignKey = this.iCust.getCustomerId();
+
+	                JOptionPane.showMessageDialog(null,"Account created");
+	                JOptionPane.showMessageDialog(null,"Proceed With Login");
+					Main.contentPane.removeAll();
+					Main.contentPane.add(new LoginPage()).setVisible(true);
 				}
 			}
 			return this.iCust;
@@ -81,14 +96,17 @@ public class DLIndividualCust {
 		try {
 			
 			//creating query to updated data 
-			String query = "Update individualcustomer SET fName = ?, lName = ?, dateOfBirth = ?, contact = ?, address = ?, designation = ? WHERE id = ?";
+			String query = "Update individualcustomer SET First_Name = ?, Last_Name = ?, DOB = ?, Contact_No = ?, Address = ?, Postal_Code = ?, Credit_Card_No = ?, Expiry_Date = ? WHERE id = ?";
 			PreparedStatement statement = this.connection.prepareStatement(query);
-			statement.setString(1, this.iCust.getfName());
-			statement.setString(2, this.iCust.getlName());
-			statement.setString(3, this.iCust.getDateOfBirth());
-			statement.setString(4, this.iCust.getContact());
-			statement.setString(5, this.iCust.getAddress());
-		
+			statement.setString(1,this.iCust.getfName());
+			statement.setString(2,this.iCust.getlName());
+			statement.setString(3,this.iCust.getDateOfBirth());
+			statement.setString(4,this.iCust.getContact());
+			statement.setString(5,this.iCust.getAddress());
+			statement.setInt(6,this.iCust.getPostalCode());
+			statement.setString(7,this.iCust.getCreditCardNo());
+			statement.setString(8,this.iCust.getExpDate());
+			
 			//executing query
 			statement.executeUpdate();
 			return this.iCust;

@@ -1,7 +1,9 @@
 package FrontendLayer;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,10 +15,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JScrollPane;
+import javax.swing.BoxLayout;
+import java.awt.FlowLayout;
+import java.awt.Component;
 
 public class AboutUs extends JFrame {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -9051986060882776331L;
 	private JPanel contentPane;
 
 	/**
@@ -106,14 +112,6 @@ public class AboutUs extends JFrame {
 		
 		JButton logout = new JButton("Log Out");
 		panel_2.add(logout);
-		
-		JPanel panel_3 = new JPanel();
-		panel.add(panel_3, BorderLayout.WEST);
-		
-		JLabel logo = new JLabel("");
-		logo.setIcon(new ImageIcon("/Users/xic/Desktop/Java Final Assignment/Luton Hotel/Hotel Luton/bin/logo.jpeg"));
-		logo.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_3.add(logo);
 		logout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(JOptionPane.showConfirmDialog(logout, "Are You Sure You Want To Log Out???", "LOGOUT",
@@ -126,9 +124,77 @@ public class AboutUs extends JFrame {
 				}
 			}
 		});
+
+		JPanel panel_3 = new JPanel();
+		panel.add(panel_3, BorderLayout.WEST);
 		
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.CENTER);
+		JLabel logo = new JLabel("");
+		logo.setHorizontalAlignment(SwingConstants.CENTER);
+		logo.setIcon(new ImageIcon("/Users/xic/Desktop/Java Final Assignment/Luton Hotel/Hotel Luton/bin/logo.jpeg"));
+		panel_3.add(logo);
+		
+		JScrollPane scroll = new JScrollPane();
+		contentPane.add(scroll, BorderLayout.CENTER);
+		
+		JPanel center = new JPanel();
+		scroll.setViewportView(center);
+		
+		JPanel box = new JPanel();
+		box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
+		center.add(box);
+		
+		JPanel center1 = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) center1.getLayout();
+		flowLayout.setVgap(20);
+		box.add(center1);
+				
+		JLabel about = new JLabel("About Us");
+		about.setBackground(Color.LIGHT_GRAY);
+		about.setBounds(705, 20, 140, 25);
+		about.setFont(new Font("Lucida Grande", Font.BOLD, 28));
+		center1.add(about);
+		
+		JPanel center2 = new JPanel();
+		box.add(center2);
+		
+		JLabel pic = new JLabel("");
+		pic.setAlignmentX(Component.CENTER_ALIGNMENT);
+		pic.setIcon(new ImageIcon("/Users/xic/Desktop/Java Final Assignment/Luton Hotel/Hotel Luton/bin/23.jpeg"));
+		center2.add(pic);
+						
+		JPanel left = new JPanel();
+		FlowLayout flowLayout_2 = (FlowLayout) left.getLayout();
+		flowLayout_2.setVgap(15);
+		flowLayout_2.setAlignment(FlowLayout.CENTER);
+		box.add(left);
+		
+		JLabel abou = new JLabel("Our Features");
+		abou.setFont(new Font("Lucida Grande", Font.BOLD, 25));
+		left.add(abou);	
+								
+		JLabel lutonBosat = new JLabel();
+		lutonBosat.setAlignmentX(Component.CENTER_ALIGNMENT);
+		lutonBosat.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		lutonBosat.setText("Luton hotel is situated in the town of Luton and boasts about providing quality rooms and services for contemporary stays.");
+		box.add(lutonBosat);
+		
+		JLabel luton = new JLabel();
+		luton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		luton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		luton.setText("It provides rooms with air-conditioners.");
+		box.add(luton);
+		
+		JLabel empty = new JLabel();
+		empty.setAlignmentX(Component.CENTER_ALIGNMENT);
+		empty.setText(" ");
+		box.add(empty);
+		
+		JLabel extra = new JLabel();
+		extra.setAlignmentX(Component.CENTER_ALIGNMENT);
+		extra.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		extra.setText("Luton hotel is situated at the heart of the Town of Luton where the environment is pretty lively.");
+		box.add(extra);
+		
 	}
 
 }

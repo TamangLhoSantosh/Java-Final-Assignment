@@ -7,9 +7,21 @@
 		<item key="height" value="563"/>
 	</section>
 	<section name="org.eclipse.wb.internal.swing.model.property.editor.icon.IconPropertyEditor$ImageDialog">
-		<item key="x" value="241"/>
-		<item key="y" value="158"/>
+		<item key="x" value="261"/>
+		<item key="y" value="104"/>
 		<item key="width" value="957"/>
 		<item key="height" value="583"/>
+	</section>
+	<section name="org.eclipse.wb.internal.swing.model.property.editor.font.FontDialog">
+		<item key="x" value="470"/>
+		<item key="y" value="213"/>
+		<item key="width" value="500"/>
+		<item key="height" value="473"/>
+	</section>
+	<section name="org.eclipse.wb.internal.swing.model.property.editor.border.BorderDialog">
+		<item key="x" value="463"/>
+		<item key="y" value="259"/>
+		<item key="width" value="513"/>
+		<item key="height" value="381"/>
 	</section>
 </section>

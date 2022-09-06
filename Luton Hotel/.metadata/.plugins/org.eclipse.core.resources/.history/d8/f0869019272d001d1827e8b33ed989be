@@ -1,0 +1,86 @@
+package FrontendLayer;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.BoxLayout;
+
+public class UpdateBooking extends JInternalFrame {
+
+	private static final long serialVersionUID = -7875460471440528401L;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					UpdateBooking frame = new UpdateBooking();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public UpdateBooking() {
+		setBounds(100, 100, 750, 600);
+		
+		JPanel panel = new JPanel();
+		getContentPane().add(panel, BorderLayout.CENTER);
+		
+		JPanel center = new JPanel();
+		panel.add(center);
+		
+		JPanel box = new JPanel();
+		box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
+		center .add(box);
+		
+		JLabel arrivaldlb = new JLabel("Arrival Date");
+		box.add(arrivaldlb);
+		
+		JPanel empty1 = new JPanel();
+		box.add(empty1);
+		
+		JLabel departuredlb = new JLabel("Departure Date");
+		box.add(departuredlb);
+		
+		JPanel empty2 = new JPanel();
+		box.add(empty2);
+		
+		JLabel roomTypelb = new JLabel("Room Type");
+		box.add(roomTypelb);
+		
+		JPanel box2 = new JPanel();
+		center.add(box2);
+
+		JPanel box1 = new JPanel();
+		box1.setLayout(new BoxLayout(box1, BoxLayout.Y_AXIS));
+		center .add(box1);
+		
+		JTextField arrivalDate = new JTextField();
+		box1.add(arrivalDate);
+		
+		JPanel empty3 = new JPanel();
+		box1.add(empty3);
+		
+		JTextField departureDate = new JTextField();
+		box1.add(departureDate);
+		
+		JPanel empty4 = new JPanel();
+		box1.add(empty4);
+		
+		JTextField roomType = new JTextField();
+		box1.add(roomType);
+	}
+
+}

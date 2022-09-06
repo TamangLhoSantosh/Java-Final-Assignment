@@ -1,0 +1,290 @@
+package DatabaseLayer;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import javax.swing.JOptionPane;
+
+import FrontendLayer.CustomerHome;
+import FrontendLayer.Gallery;
+import FrontendLayer.LoginPage;
+import Helper.DatabaseConnector;
+import Models.Login;
+
+public class DLLogin {
+
+	//declaring variables
+	private Login log;
+	private DatabaseConnector db;
+	private Connection connection;
+	public static int foreignKey;
+	public static String fullName;
+	public static String dateOB;
+	public static String contact;
+	public static String address;
+	public static String pcode;
+	public static String creditc;
+	public static String exDate;
+	public static int regNo;
+	public static String compName;
+	public static int discountd;
+	public static String discounty;
+	public static String title;
+
+	public DLLogin() throws Exception {
+		this.log = new Login();
+		try {
+			this.db = DatabaseConnector.getInstance();
+			this.connection = this.db.getConnection();
+		}catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
+	public DLLogin(Login log) throws Exception{
+		this.log = log;
+		try {
+			this.db = DatabaseConnector.getInstance();
+			this.connection = this.db.getConnection();
+		}catch (Exception ex) {
+			throw ex;
+		}
+	}
+
+	public Login getLog() {
+		return log;
+	}
+
+	public void setLog(Login log) {
+		this.log = log;
+	}
+	
+
+	//method to insert data into login table 
+	public Login register() throws Exception {
+
+		try {
+			
+			if(same()) {
+				
+				//preparing to insert the data entered
+				String generatedColumns[] = {"id"};
+				
+				//creating query to insert data
+				String query = "INSERT INTO login(email, password) VALUES(?,?)";
+				PreparedStatement statement = this.connection.prepareStatement(query, generatedColumns);
+				statement.setString(1,this.log.getEmail());
+				statement.setString(2,this.log.getPassword());
+				
+				//query execution
+				int noOfUpdate = statement.executeUpdate();
+				if(noOfUpdate > 0) {
+					ResultSet rs = statement.getGeneratedKeys();
+					if(rs.next()) {
+						int id = rs.getInt(1);
+						this.log.setUserId(id);
+						foreignKey = this.log.getUserId();
+					}
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Email already used...");
+			}
+			return this.log;
+		}catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
+
+	/*
+	 * checking for the same data entries
+	 */
+	private boolean same() throws Exception{
+		
+		//generating query
+		String query = "SELECT * FROM LOGIN WHERE Email = ?";
+		try {
+			PreparedStatement statement = this.connection.prepareStatement(query);
+			statement.setString(1, this.log.getEmail());
+			
+			//executes the query
+			ResultSet rs = statement.executeQuery();
+			
+			//checking no. of result
+			if(rs.next()) {
+				return false;
+			}
+		}catch (Exception ex) {
+			throw ex;
+		}
+		return true;
+	}
+	
+	/*
+	 * search for the entered data
+	 * compares the data entered with the information in the database
+	 */
+	public Login login() throws Exception{
+		
+		//generationg query
+		String query = "SELECT * FROM LOGIN WHERE Email = ? AND Password = ?";
+		try {
+			PreparedStatement statement = this.connection.prepareStatement(query);
+			statement.setString(1, this.log.getEmail());
+			statement.setString(2, this.log.getPassword());
+			
+			//executes the query
+			ResultSet rs = statement.executeQuery();
+			
+			//checking no. of result
+			if(rs.next()) {
+
+				this.log.setUserId(rs.getInt("User_id"));
+				
+				//validating the type of user
+				if(individual()) {
+					
+					//displaying welcome message
+					JOptionPane.showMessageDialog(null, "Welcome " + fullName);
+					
+					//opening corresponding page
+					CustomerHome home = new CustomerHome();
+					home.setVisible(true);
+				}
+				
+				//validating user type
+				else if(corporate()) {
+
+					//displaying welcome message
+					JOptionPane.showMessageDialog(null, "Welcome " + compName);
+					
+					//opening corresponding page
+					CustomerHome home = new CustomerHome();
+					home.setVisible(true);
+				}
+				
+				else if(staff()) {
+
+					//displaying welcome message
+					JOptionPane.showMessageDialog(null, "Welcome " + fullName);
+					
+					//opening corresponding page
+					Gallery gp = new Gallery();
+					gp.setVisible(true);
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Invaild email or password", "Login Error", 2);
+			}
+		}catch (Exception ex) {
+			throw ex;
+		}
+		return log;
+	}
+	
+	/*
+	 * checking for the user type
+	 * it checks for individual customer
+	 */
+	private boolean individual() throws Exception {
+		String query = "SELECT * FROM individualcustomer i, login l WHERE i.user_Id = ?";
+		try {
+			PreparedStatement statement = this.connection.prepareStatement(query);
+			statement.setInt(1, this.log.getUserId());
+			
+			//executes the query
+			ResultSet rs = statement.executeQuery();
+			
+			if(rs.next()) {
+
+				/*
+				 * setting data into variables
+				 */
+				String fname = rs.getString("First_Name");
+				String lname = rs.getString("Last_Name");
+				fullName = fname + " " +lname;
+				dateOB = rs.getString("DOB");
+				contact = rs.getString("Contact_No");
+				address = rs.getString("Address");
+				pcode = String.valueOf(rs.getInt("Postal_Code"));
+				creditc = rs.getString("Credit_Card_No");
+				exDate = rs.getString("Expiry_Date");
+
+				//returning value
+				return true;
+			}
+		}catch (Exception ex) {
+			throw ex;
+		}return false;
+	}
+
+	/*
+	 * checking for the user type
+	 * it checks for individual customer
+	 */
+	private boolean corporate() throws Exception {
+		String query = "SELECT * FROM corporatecustomer c, login l WHERE c.user_Id = ?";
+		try {
+			PreparedStatement statement = this.connection.prepareStatement(query);
+			statement.setInt(1, this.log.getUserId());
+			
+			//executes the query
+			ResultSet rs = statement.executeQuery();
+			
+			if(rs.next()) {
+
+				/*
+				 * setting data into variables
+				 */
+				regNo = rs.getInt("Registration_No");
+				compName = rs.getString("Company_Name");
+				contact = rs.getString("Contact_No");
+				address = rs.getString("Address");
+				discountd = rs.getInt("Discount_Discussed");
+				discounty = rs.getString("Discount_Year");
+				
+				//returning value
+				return true;
+			}
+		}catch (Exception ex) {
+			throw ex;
+		}return false;
+	}
+	
+	/*
+	 * checking for the user type
+	 * it checks for individual customer
+	 */
+	private boolean staff() throws Exception {
+		String query = "SELECT * FROM staff s, login l WHERE s.user_Id = ?";
+		try {
+			PreparedStatement statement = this.connection.prepareStatement(query);
+			statement.setInt(1, this.log.getUserId());
+
+			//executes the query
+			ResultSet rs = statement.executeQuery();
+			
+			if(rs.next()) {
+
+				/*
+				 * setting data into variables
+				 */
+				String fname = rs.getString("First_Name");
+				String lname = rs.getString("Last_Name");
+				fullName = fname + " " +lname;
+				dateOB = rs.getString("DOB");
+				contact = rs.getString("Contact_No");
+				address = rs.getString("Address");
+				title = rs.getString("Designation");
+
+				return true;
+			}
+		}catch (Exception ex) {
+			throw ex;
+		}return false;
+			
+	}
+
+}

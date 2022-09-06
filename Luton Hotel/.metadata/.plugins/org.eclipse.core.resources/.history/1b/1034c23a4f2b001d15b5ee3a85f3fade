@@ -1,0 +1,86 @@
+package FrontendLayer;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
+import javax.swing.BoxLayout;
+import java.awt.FlowLayout;
+import java.awt.Font;
+
+public class LastPage extends JFrame {
+
+	private static final long serialVersionUID = -7220655015178383598L;
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					LastPage frame = new LastPage();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public LastPage() {
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(500, 300, 500, 350);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		
+		JPanel panel = new JPanel();
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JPanel box = new JPanel();
+		box.setBounds(178, 80, 149, 105);
+		box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
+		panel.add(box);
+		
+				JPanel center1 = new JPanel();
+				box.add(center1);
+				
+				JLabel message1 = new JLabel("Thank You For");
+				message1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+				center1.add(message1);
+				
+						JPanel center2 = new JPanel();
+						box.add(center2);
+						
+						JLabel message2 = new JLabel("Chosing");
+						message2.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+						center2.add(message2);
+						
+								JPanel center3 = new JPanel();
+								box.add(center3);
+								
+								JLabel message3 = new JLabel("Hotel Luton");
+								message3.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+								center3.add(message3);
+		
+		JPanel center = new JPanel();
+		center.setBounds(0, 0, 500, 350);
+		panel.add(center);
+		
+		JLabel pic = new JLabel();
+		center.add(pic);
+	}
+
+}
