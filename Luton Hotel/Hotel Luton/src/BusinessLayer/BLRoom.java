@@ -26,20 +26,19 @@ public class BLRoom {
 		}
 	}
 	
-	public void delete() throws Exception {
-		// This function saves the user detail to database and returns the user object after saving
+	public ArrayList<Room> viewRoom() throws Exception{
 		try {
-			DLRoom dlRoom = new DLRoom(this.room);
-			dlRoom.delete();
-		} catch (Exception e) {
+			DLRoom dlr = new DLRoom();
+			return dlr.viewRoom();
+		}catch(Exception e) {
 			throw e;
 		}
 	}
 	
-	public ArrayList<Room> getAllRoom() throws Exception {
+	public ArrayList<Room> viewAllRoom() throws Exception {
 		try {
 			DLRoom dlRoom = new DLRoom();
-			return dlRoom.getAllUser();
+			return dlRoom.viewAllRoom();
 		}catch(Exception e) {
 			throw e;
 		}

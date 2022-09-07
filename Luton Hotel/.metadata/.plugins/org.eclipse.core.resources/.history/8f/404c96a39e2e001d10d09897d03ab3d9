@@ -1,0 +1,90 @@
+package FrontendLayer;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.FlowLayout;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+public class AssignRoom extends JFrame {
+
+	private static final long serialVersionUID = -3732355350714645086L;
+	private JPanel contentPane;
+	private JTable table;
+	private DefaultTableModel model;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					AssignRoom frame = new AssignRoom();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public AssignRoom() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(400, 200, 600, 500);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		
+		JPanel center = new JPanel();
+		contentPane.add(center, BorderLayout.CENTER);
+		
+		JPanel box = new JPanel();
+		box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
+		center.add(box);
+		
+		JLabel aRoom = new JLabel("Assign Room");
+		aRoom.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		box.add(aRoom);
+		
+		JPanel empty = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) empty.getLayout();
+		flowLayout.setVgap(10);
+		box.add(empty);
+		
+		JPanel room = new JPanel();
+		box.add(room);
+		
+		JLabel roomType = new JLabel("Room Type");
+		roomType.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		room.add(roomType);
+		
+		JPanel empty1 = new JPanel();
+		FlowLayout flowLayout_1 = (FlowLayout) empty1.getLayout();
+		flowLayout_1.setHgap(30);
+		room.add(empty1);
+		
+		JLabel rType = new JLabel("New label");
+		rType.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		room.add(rType);
+		
+		JScrollPane forTable = new JScrollPane();
+		box.add(forTable);
+		
+		table = new JTable();
+		box.add(table);
+	}
+
+}

@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import FrontendLayer.StaffHome;
+
 public class DLRoom {
 	private Room room;
 	private DatabaseConnector db;
@@ -58,33 +60,41 @@ public class DLRoom {
 		}
 	}
 	
-	public void delete() throws Exception {
+	public ArrayList<Room> viewRoom() throws Exception{
 		try {
-			// create the statement
-			String query = "DELETE FROM Room WHERE id=?";
-			PreparedStatement statement = this.connection.prepareStatement(query);
-			statement.setInt(1, room.getRoomNo());
-			// execute the query
-			statement.executeUpdate();
-		}catch(Exception ex) {
+			ArrayList<Room> rooms = new ArrayList<Room>();
+			String query = "SELECT * FROM room WHERE ROOM_TYPE = " + StaffHome.rType + "ORDER BY Room_No";
+			Statement statement = this.connection.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			while(rs.next()) {
+				Room r = new Room();
+				r.setRoomNo(rs.getInt("Room_no"));
+				r.setFloorNo(rs.getInt("Floor_no"));
+				r.setRate(rs.getInt("Rate"));
+				r.setRoomType(rs.getString("Room_type"));
+				rooms.add(r);
+			}
+			return rooms;
+		}
+		catch(Exception ex) {
 			throw ex;
 		}
 	}
 	
-	public ArrayList<Room> getAllUser() throws Exception {
+	public ArrayList<Room> viewAllRoom() throws Exception {
 		try {
-			ArrayList<Room> users = new ArrayList<Room>();
-			String query = "SELECT * FROM user ORDER BY name";
+			ArrayList<Room> rooms = new ArrayList<Room>();
+			String query = "SELECT * FROM room ORDER BY Room_No";
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			while(rs.next()) {
-				Room u = new Room();
-				u.setRoomNo(rs.getInt("id"));
-				u.setFloorNo(rs.getInt("name"));
-				u.setRate(rs.getInt("address"));
-				users.add(u);
+				Room r = new Room();
+				r.setRoomNo(rs.getInt("id"));
+				r.setFloorNo(rs.getInt("name"));
+				r.setRate(rs.getInt("address"));
+				rooms.add(r);
 			}
-			return users;
+			return rooms;
 		}
 		catch(Exception ex) {
 			throw ex;
@@ -108,11 +118,11 @@ public class DLRoom {
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			while(rs.next()) {
-				Room u = new Room();
-				u.setRoomNo(rs.getInt("id"));
-				u.setFloorNo(rs.getInt("name"));
-				u.setRate(rs.getInt("address"));
-				rooms.add(u);
+				Room r = new Room();
+				r.setRoomNo(rs.getInt("id"));
+				r.setFloorNo(rs.getInt("name"));
+				r.setRate(rs.getInt("address"));
+				rooms.add(r);
 			}
 		} catch (SQLException e) {
 			throw new Exception(e.getMessage());

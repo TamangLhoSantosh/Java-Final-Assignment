@@ -81,6 +81,26 @@ public class BLBooking {
 			throw e;
 		}
 	}
+
+	//creating connection
+	public void bookingVerfied() throws Exception {
+		try {
+			DLBooking dlBooking = new DLBooking();
+			dlBooking.bookingVerified();
+		}catch(Exception ex) {
+			throw ex;
+		}
+	}
+	
+	//connecting database
+	public void assign() throws Exception{
+		try {
+			DLBooking dlb = new DLBooking();
+			dlb.assign();
+		}catch(Exception ex) {
+			throw ex;
+		}
+	}
 	
 	//connecting with databasae
 	public ArrayList<Booking> viewBooking() throws Exception {
@@ -91,7 +111,19 @@ public class BLBooking {
 			throw ex;
 		}
 	}
+
+	//connectiong database
+	public ArrayList<Booking> viewPendingBooking() throws Exception{
+		try {
+			DLBooking book = new DLBooking();
+			return book.viewPendingBooking();
+			
+		}catch(Exception ex) {
+			throw ex;
+		}
+	}
 	
+
 	//connectiong database
 	public ArrayList<Booking> viewAllBooking() throws Exception{
 		try {
@@ -102,5 +134,4 @@ public class BLBooking {
 			throw ex;
 		}
 	}
-	
 }

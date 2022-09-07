@@ -23,7 +23,6 @@
     <fullyQualifiedTypeName name="FrontendLayer.BookingPage"/>
     <fullyQualifiedTypeName name="FrontendLayer.ViewBooking"/>
     <fullyQualifiedTypeName name="javax.swing.JPanel"/>
-    <fullyQualifiedTypeName name="FrontendLayer.StaffHome"/>
     <fullyQualifiedTypeName name="FrontendLayer.SingleBooking"/>
     <fullyQualifiedTypeName name="FrontendLayer.DoubleBooking"/>
     <fullyQualifiedTypeName name="FrontendLayer.TwinBooking"/>
@@ -34,13 +33,16 @@
     <fullyQualifiedTypeName name="javax.swing.JTable"/>
     <fullyQualifiedTypeName name="javax.swing.JScrollPane"/>
     <fullyQualifiedTypeName name="javax.swing.table.DefaultTableModel"/>
-    <fullyQualifiedTypeName name="javax.swing.JButton"/>
     <fullyQualifiedTypeName name="BusinessLayer.BLCorporateCust"/>
     <fullyQualifiedTypeName name="javax.swing.JTextField"/>
     <fullyQualifiedTypeName name="javax.swing.JLabel"/>
     <fullyQualifiedTypeName name="DatabaseLayer.DLRoom"/>
-    <fullyQualifiedTypeName name="Models.Room"/>
-    <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
     <fullyQualifiedTypeName name="Models.Booking"/>
+    <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+    <fullyQualifiedTypeName name="BusinessLayer.BLRoom"/>
+    <fullyQualifiedTypeName name="Models.Room"/>
     <fullyQualifiedTypeName name="BusinessLayer.BLBooking"/>
+    <fullyQualifiedTypeName name="FrontendLayer.AssignRoom"/>
+    <fullyQualifiedTypeName name="FrontendLayer.StaffHome"/>
+    <fullyQualifiedTypeName name="javax.swing.JButton"/>
 </qualifiedTypeNameHistroy>

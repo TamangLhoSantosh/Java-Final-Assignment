@@ -169,7 +169,7 @@ public class ViewBooking extends JFrame {
 			JOptionPane.showMessageDialog(null, "Select a row first");
 		}
 		else {
-			String cancel = (model.getValueAt(i, 0).toString());
+			String cancel = String.valueOf(model.getValueAt(i, 6));
 			if(cancel.equals("CANCEL")){
 				JOptionPane.showMessageDialog(null, "Booking is already cancelled");
 			}
@@ -182,6 +182,7 @@ public class ViewBooking extends JFrame {
 				ub.setVisible(true);
 			}
 		}
+		viewBooking();
 	}
 	
 	public void cancel() {
@@ -190,7 +191,7 @@ public class ViewBooking extends JFrame {
 			JOptionPane.showMessageDialog(null, "Select a row first");
 		}
 		else {
-			String same = (model.getValueAt(i, 0).toString());
+			String same = String.valueOf(model.getValueAt(i, 6));
 			if(same.equals("CANCEL")) {
 				JOptionPane.showMessageDialog(null, "Already cancelled");
 			}

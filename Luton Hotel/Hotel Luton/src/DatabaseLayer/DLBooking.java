@@ -9,7 +9,9 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import FrontendLayer.AssignRoom;
 import FrontendLayer.LastPage;
+import FrontendLayer.StaffHome;
 import FrontendLayer.ViewBooking;
 import Helper.DatabaseConnector;
 import Models.Booking;
@@ -60,7 +62,7 @@ public class DLBooking {
 			String generatedColumns[] = {"id"};
 
 			//creating query to insert data
-				String query = "INSERT INTO booking (booking_Date, booking_verified, booking_status, arrival_date, departure_date, room_type, icustomer_id, ccustomer_id) VALUES(Current_Date(), 'No', 'Pending', ?,?,?,?,?)";
+				String query = "INSERT INTO booking (booking_Date, booking_verified, booking_status, arrival_date, departure_date, room_type, icustomer_id, ccustomer_id) VALUES(Current_Date(), 'NO', 'PENDING', ?,?,?,?,?)";
 				PreparedStatement statement =this.connection.prepareStatement(query, generatedColumns);
 				statement.setString(1,this.book.getArrivalDate());
 				statement.setString(2,this.book.getDepartureDate());
@@ -116,7 +118,7 @@ public class DLBooking {
 			try {
 				
 				//qurey creation
-				String query = "Update booking SET Booking_Status = 'Cancel' WHERE Booking_id = ? AND Booking_Status = 'Pending'";
+				String query = "Update booking SET Booking_Status = 'CANCEL' WHERE Booking_id = ? AND Booking_Status = 'PENDING'";
 				PreparedStatement statement = this.connection.prepareStatement(query);
 				statement.setInt(1, ViewBooking.id);
 
@@ -160,13 +162,97 @@ public class DLBooking {
 			}
 		}
 		
+		//making the booking verified;
+		public void bookingVerified() throws Exception {
+			try {
+				//qurey creation
+				String query = "Update booking SET Booking_Verified = 'YES' WHERE Booking_id = ? AND Booking_Verified = 'NO'";
+				PreparedStatement statement = this.connection.prepareStatement(query);
+				statement.setInt(1, ViewBooking.id);
+				statement.executeUpdate();
+				
+				JOptionPane.showInternalMessageDialog(null, "Booking Verified");
+
+			}catch(Exception ex) {
+				throw ex;
+			}
+		}
+		
+		//assiging room
+		public void assign() throws Exception{
+			//making query
+			try {
+				String query = "UPDATE Booking SET Room_Id = " + AssignRoom.id + " Booking_Verified = 'YES' WHERE Booking_Id = " + StaffHome.id;
+
+				Statement statement = this.connection.createStatement();
+				statement.executeQuery(query);
+			}catch(Exception ex) {
+				throw ex;
+			}
+		}
+
+
 		//method to all the booking made by an individual customer
 		public ArrayList<Booking> viewBooking() throws Exception{
+			ArrayList<Booking> bb = new ArrayList<Booking>();
+			try {
+				if(DLLogin.icid == 0) {
+
+
+					//making query
+					String query = "SELECT * FROM BOOKING b JOIN CorporateCustomer i ON b.cCustomer_ID = " + DLLogin.ccid + " ORDER BY Arrival_Date";
+					Statement statement = this.connection.createStatement();
+					ResultSet rs = statement.executeQuery(query);
+					while(rs.next()) {
+						
+						//creating and initializing new variable
+						Booking book = new Booking();
+						book.setBookingId(rs.getInt("Booking_Id"));
+						book.setBookingDate(rs.getString("Booking_Date"));
+						book.setRoomType(rs.getString("Room_Type"));
+						book.setArrivalDate(rs.getString("Arrival_Date"));
+						book.setDepartureDate(rs.getString("Departure_Date"));
+						book.setBookingVerified(rs.getString("Booking_Verified"));
+						book.setBookingStatus(rs.getString("Booking_Status"));
+						
+						//adding data to the arraylist
+						bb.add(book);
+					}
+
+					}
+				else {//making query
+					String query = "SELECT * FROM BOOKING b JOIN INDIVIDUALCUSTOMER i ON b.iCustomer_ID = " + DLLogin.icid + " ORDER BY Arrival_Date";
+					Statement statement = this.connection.createStatement();
+					ResultSet rs = statement.executeQuery(query);
+					while(rs.next()) {
+						
+						//creating and initializing new variable
+						Booking book = new Booking();
+						book.setBookingId(rs.getInt("Booking_Id"));
+						book.setBookingDate(rs.getString("Booking_Date"));
+						book.setRoomType(rs.getString("Room_Type"));
+						book.setArrivalDate(rs.getString("Arrival_Date"));
+						book.setDepartureDate(rs.getString("Departure_Date"));
+						book.setBookingVerified(rs.getString("Booking_Verified"));
+						book.setBookingStatus(rs.getString("Booking_Status"));
+						
+						//adding data to the arraylist
+						bb.add(book);
+					}
+								}
+				return bb;				
+			}catch (SQLException ex) {
+				throw ex;
+			}
+		}
+
+		//method to view all bookings
+		public ArrayList<Booking> viewPendingBooking() throws Exception{
 			try {
 				ArrayList<Booking> bb = new ArrayList<Booking>();
 				
-				//making query
-				String query = "SELECT * FROM BOOKING b JOIN INDIVIDUALCUSTOMER i ON b.iCustomer_ID = " + DLLogin.icid;
+				//making query for view booking
+				String query = "SELECT * FROM BOOKING WHERE Booking_Status = 'Pending'";
 				Statement statement = this.connection.createStatement();
 				ResultSet rs = statement.executeQuery(query);
 				while(rs.next()) {
@@ -180,23 +266,24 @@ public class DLBooking {
 					book.setDepartureDate(rs.getString("Departure_Date"));
 					book.setBookingVerified(rs.getString("Booking_Verified"));
 					book.setBookingStatus(rs.getString("Booking_Status"));
-					
-					//adding data to the arraylist
 					bb.add(book);
 				}
-				return bb;				
-			}catch (SQLException ex) {
+				
+				//adding data to the arraylist
+				return bb;
+			}catch(Exception ex) {
 				throw ex;
 			}
 		}
 		
+
 		//method to view all bookings
 		public ArrayList<Booking> viewAllBooking() throws Exception{
 			try {
 				ArrayList<Booking> bb = new ArrayList<Booking>();
 				
 				//making query for view booking
-				String query = "SELECT * FROM BOOKING WHERE Booking_Status = 'Pending'";
+				String query = "SELECT * FROM BOOKING";
 				Statement statement = this.connection.createStatement();
 				ResultSet rs = statement.executeQuery(query);
 				while(rs.next()) {

@@ -36,6 +36,7 @@ public class DLLogin {
 	public static String title;
 
 	public DLLogin() throws Exception {
+		title = " ";
 		this.log = new Login();
 		try {
 			this.db = DatabaseConnector.getInstance();
@@ -140,6 +141,21 @@ public class DLLogin {
 			
 			//executes the query
 			ResultSet rs = statement.executeQuery();
+
+			icid = 0;
+			fullName = " ";
+			dateOB = " ";
+			contact = " ";
+			address = " ";
+			pcode = " ";
+			creditc = " ";
+			exDate = " ";
+			ccid = 0;
+			regNo = 0;
+			compName = " ";
+			discountd = 0;
+			discounty = " ";
+			sfid = 0;
 			
 			//checking no. of result
 			if(rs.next()) {

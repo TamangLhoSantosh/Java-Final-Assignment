@@ -6,6 +6,7 @@ public class Room {
 	private int roomNo;
 	private int floorNo;
 	private double rate;
+	private String roomType;
 	private String availability;
 	
 	public Room() {
@@ -46,6 +47,14 @@ public class Room {
 		this.rate = rate;
 	}
 
+	public String getRoomType() {
+		return roomType;
+	}
+	
+	public void setRoomType(String roomType) {
+		this.roomType = roomType;
+	}
+	
 	public String getAvailability() {
 		return availability;
 	}

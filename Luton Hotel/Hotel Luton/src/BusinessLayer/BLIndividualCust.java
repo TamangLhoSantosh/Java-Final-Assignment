@@ -31,9 +31,9 @@ public class BLIndividualCust {
 	}
 	
 	//validates the individual customer details
-	private boolean validateIndividualCust(IndividualCustomer iCust) throws InputException {
+	public boolean validateIndividualCust(IndividualCustomer iCust) throws InputException {
 		
-		if(iCust.getfName() == null || iCust.getfName().length() == 0) {
+		if(iCust.getfName().equals(" ")) {
 			throw new InputException("Individual customer first name cannot be empty.");
 		}
 		if(iCust.getlName() == null || iCust.getlName().length() == 0) {
@@ -101,7 +101,7 @@ public class BLIndividualCust {
 	}
 	
 	//searches the specific individual customer
-	public ArrayList<IndividualCustomer> searchUser(String[] keys, String[] values) throws Exception{
+	public ArrayList<IndividualCustomer> searchIndividualCust(String[] keys, String[] values) throws Exception{
 		try {
 			DLIndividualCust dlICust = new DLIndividualCust();
 			return dlICust.searchIndividualCust(keys, values);
