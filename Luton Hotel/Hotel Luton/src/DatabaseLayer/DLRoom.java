@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import FrontendLayer.AssignRoom;
 import FrontendLayer.Corporate;
+import FrontendLayer.CorporateB;
 import FrontendLayer.StaffHome;
 
 public class DLRoom {
@@ -166,4 +167,45 @@ public class DLRoom {
 			throw e;
 		}
 	}
+	
+	//generating bill for individual customer
+	public AllModel billIC() throws Exception{
+		try {
+			AllModel am = new AllModel();
+			String query = "SELECT b.Booking_ID, i.icustomer_id, CONCAT(i.First_Name, ' ', i.Last_Name) FullName, r.Room_Type, r.Rate, (b.departure_date - b.arrival_date) Night_Stayed, ((b.departure_date - b.arrival_date) * r.Rate) Total FROM Booking b, IndividualCustomer i , room r WHERE r.room_No = b.room_id AND b.icustomer_id = i.icustomer_id AND b.booking_id = " + StaffHome.bid;
+			Statement statement = this.connection.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			am.setBookingId(rs.getInt("Booking_id"));
+			am.setIcustomerId(rs.getInt("icustomer_id"));
+			am.setName(rs.getString("FullName"));
+			am.setRoomType(rs.getString("Room_Type"));
+			am.setRate(rs.getInt("Rate"));
+			am.setNightStayed(rs.getInt("Night_Stayed"));
+			am.setTotal(rs.getInt("Total"));
+			return am;
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	//generating bill for corporate customer
+	public AllModel billCC() throws Exception{
+		try {
+			AllModel am = new AllModel();
+			String query = "SELECT b.Booking_ID, c.ccustomer_id, c.company_name, r.Room_Type, r.Rate, (b.departure_date - b.arrival_date) Night_Stayed, ((b.departure_date - b.arrival_date) * r.Rate) Total FROM Booking b, CorporateCustomer c , room r WHERE r.room_No = b.room_id AND b.ccustomer_id = c.ccustomer_id AND b.booking_id = " + CorporateB.bid;
+			Statement statement = this.connection.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			am.setBookingId(rs.getInt("Booking_id"));
+			am.setCcustomerId(rs.getInt("ccustomer_id"));
+			am.setCompname(rs.getString("Company_Name"));
+			am.setRoomType(rs.getString("Room_Type"));
+			am.setRate(rs.getInt("Rate"));
+			am.setNightStayed(rs.getInt("Night_Stayed"));
+			am.setTotal(rs.getInt("Total"));
+			return am;
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
 }

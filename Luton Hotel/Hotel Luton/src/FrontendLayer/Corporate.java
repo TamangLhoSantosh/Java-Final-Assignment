@@ -66,6 +66,7 @@ public class Corporate extends JFrame {
 		
 		table = new JTable();
 		JScrollPane forTable = new JScrollPane(table);
+		table.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		center.add(forTable);
 		
 		model = new DefaultTableModel();
@@ -212,10 +213,17 @@ public class Corporate extends JFrame {
 			JOptionPane.showMessageDialog(null, "Select a row first");
 		}
 		else{
-			ccid = Integer.parseInt(String.valueOf(model.getValueAt(i, 0)));;
-			CorporateB cb = new CorporateB();
-			cb.viewcTable();
-			cb.setVisible(true);
+			String bkst = String.valueOf(model.getValueAt(i, 7));
+			if(bkst.equals("CLOSED")) {
+				ccid = Integer.parseInt(String.valueOf(model.getValueAt(i, 0)));;
+				CorporateB cb = new CorporateB();
+				cb.viewcTable();
+				cb.setVisible(true);
+			
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Cannot generate bill now");
+			}
 		}
 	}
 }

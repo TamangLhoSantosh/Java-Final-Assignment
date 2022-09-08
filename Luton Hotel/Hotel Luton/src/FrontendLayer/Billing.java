@@ -6,8 +6,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import BusinessLayer.BLRoom;
+
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.FlowLayout;
 import java.awt.Font;
 
@@ -74,7 +79,7 @@ public class Billing extends JFrame {
 		flowLayout.setHgap(30);
 		desc.add(empty1);
 		
-		JLabel day = new JLabel("");
+		JLabel day = new JLabel();
 		day.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		desc.add(day);
 		
@@ -95,11 +100,26 @@ public class Billing extends JFrame {
 		flowLayout_1.setHgap(30);
 		total.add(empty3);
 		
-		JLabel money = new JLabel("");
+		JLabel money = new JLabel();
 		money.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		total.add(money);
 	}
 
-	public void bill(){
+	public void billIC(){
+		try {
+			BLRoom blr = new BLRoom();
+			blr.billIC();
+		}catch(Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+	}
+	
+	public void billCC() {
+		try {
+			BLRoom blr = new BLRoom();
+			blr.billCC();
+		}catch(Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
 	}
 }

@@ -26,6 +26,7 @@ public class CorporateB extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private DefaultTableModel model;
+	public static int bid; 
 
 	/**
 	 * Launch the application.
@@ -181,9 +182,17 @@ public class CorporateB extends JFrame {
 			JOptionPane.showMessageDialog(null, "Select a row first");
 		}
 		else{
-			Billing bill = new Billing();
-			bill.bill();
-			bill.setVisible(true);
+			String bkst = String.valueOf(model.getValueAt(i, 7));
+			if(bkst.equals("CLOSED")) {
+
+				bid = Integer.parseInt(String.valueOf(model.getValueAt(i, 0)));
+				Billing bill = new Billing();
+				bill.billCC();
+				bill.setVisible(true);
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Cannot generate bill now");
+			}
 		}
 	}
 }

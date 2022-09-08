@@ -6,12 +6,15 @@ public class AllModel {
 	private String departureDate;
 	private int roomNo;
 	private String roomType;
+	private int rate;
 	private String bookingStatus;
 	private int icustomerId;
 	private int ccustomerId;
 	private String name;
 	private String compname;
 	private int staffId;
+	private int nightStayed;
+	private int total;
 	
 	public int getBookingId() {
 		return bookingId;
@@ -42,6 +45,12 @@ public class AllModel {
 	}
 	public void setRoomType(String roomType) {
 		this.roomType = roomType;
+	}
+	public int getRate() {
+		return rate;
+	}
+	public void setRate(int rate) {
+		this.rate = rate;
 	}
 	public String getBookingStatus() {
 		return bookingStatus;
@@ -78,6 +87,18 @@ public class AllModel {
 	}
 	public void setStaffId(int staffId) {
 		this.staffId = staffId;
+	}
+	public int getNightStayed() {
+		return nightStayed;
+	}
+	public void setNightStayed(int nightStayed) {
+		this.nightStayed = nightStayed;
+	}
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
 	}
 	
 }

@@ -557,7 +557,7 @@ public class StaffHome extends JFrame {
 	//table identifier
 	public void showAllBooking() {
 
-		Object[] colsName = new Object[8];
+		Object[] colsName = new Object[7];
 		colsName[0] = "Booking Id";
 		colsName[1] = "Booking Date";
 		colsName[2] = "Room Type";
@@ -565,7 +565,6 @@ public class StaffHome extends JFrame {
 		colsName[4] = "Departure Date";
 		colsName[5] = "Booking Verifired";
 		colsName[6] = "Booking Status";
-		colsName[7] = "Room Id";
 		
 		model.setColumnIdentifiers(colsName);
 		table.setModel(model);
@@ -641,6 +640,20 @@ public class StaffHome extends JFrame {
 			CorporateB cb = new CorporateB();
 			cb.viewiTable();
 			cb.setVisible(true);
+		}
+	}
+
+	//genreting bill
+	public void billing() {
+		int i = table.getSelectedRow();
+		if(i < 0 ) {
+			JOptionPane.showMessageDialog(null, "Select a row first");
+		}
+		else{
+			bid = Integer.parseInt(String.valueOf(model.getValueAt(i, 0)));
+			Billing bill = new Billing();
+			bill.billIC();
+			bill.setVisible(true);
 		}
 	}
 }

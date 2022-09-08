@@ -48,6 +48,26 @@ public class BLRoom {
 	}
 
 	//connecting to database
+	public AllModel billIC() throws Exception {
+		try {
+			DLRoom dlr = new DLRoom();
+			return dlr.billIC();
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+
+	//connecting with database	
+	public AllModel billCC() throws Exception {
+		try {
+			DLRoom dlr = new DLRoom();
+			return dlr.billCC();
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	//connecting to database
 	public ArrayList<AllModel> viewiData() throws Exception{
 		try {
 			DLRoom dlr = new DLRoom();

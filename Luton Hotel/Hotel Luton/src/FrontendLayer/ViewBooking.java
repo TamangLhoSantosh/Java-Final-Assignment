@@ -71,6 +71,7 @@ public class ViewBooking extends JFrame {
 		
 		table = new JTable();
 		JScrollPane forTable = new JScrollPane(table);
+		table.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		box.add(forTable);
 		showTable();
 		
