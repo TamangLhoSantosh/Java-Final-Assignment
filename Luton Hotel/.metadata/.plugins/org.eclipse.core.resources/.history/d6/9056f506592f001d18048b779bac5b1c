@@ -1,0 +1,145 @@
+package DatabaseLayer;
+
+import Models.AllModel;
+import Models.Room;
+import Helper.DatabaseConnector;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import FrontendLayer.AssignRoom;
+import FrontendLayer.StaffHome;
+
+public class DLRoom {
+	private Room room;
+	private DatabaseConnector db;
+	private Connection connection;
+	
+	
+	public DLRoom() throws Exception {
+		this.room = new Room();
+		try {
+			this.db = DatabaseConnector.getInstance();
+			this.connection = this.db.getConnection();
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
+	public DLRoom(Room room) throws Exception {
+		this.room = room;
+		try {
+			this.db = DatabaseConnector.getInstance();
+			this.connection = this.db.getConnection();
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+	
+	
+	//show specific rooms
+	public ArrayList<Room> viewRoom() throws Exception{
+		
+		//reading data from other class
+		String roomt = StaffHome.rType;
+		try {
+			
+			ArrayList<Room> rooms = new ArrayList<Room>();
+			
+			//creating query
+			String query = "SELECT * FROM room WHERE ROOM_TYPE = '" + roomt + "'";
+			Statement statement = this.connection.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			while(rs.next()) {
+				Room r = new Room();
+				r.setRoomNo(rs.getInt("Room_no"));
+				r.setFloorNo(rs.getInt("Floor_no"));
+				r.setRate(rs.getInt("Rate"));
+				r.setRoomType(rs.getString("Room_type"));
+				r.setAvailability(rs.getString("Availability"));
+				rooms.add(r);
+			}
+			return rooms;
+		}
+		catch(Exception ex) {
+			throw ex;
+		}
+	}
+	
+	//shows all room
+	public ArrayList<Room> viewAllRoom() throws Exception {
+		try {
+			ArrayList<Room> rooms = new ArrayList<Room>();
+			String query = "SELECT * FROM room ORDER BY Room_No";
+			Statement statement = this.connection.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			while(rs.next()) {
+				Room r = new Room();
+				r.setRoomNo(rs.getInt("Room_no"));
+				r.setFloorNo(rs.getInt("Floor_no"));
+				r.setRate(rs.getInt("Rate"));
+				r.setRoomType(rs.getString("Room_type"));
+				r.setAvailability(rs.getString("Availability"));
+				rooms.add(r);
+			}
+			return rooms;
+		}
+		catch(Exception ex) {
+			throw ex;
+		}
+	}
+	
+	//make the room unavailable
+	public void assign() throws Exception {
+		try {
+
+			//creating query 
+			String query = "UPDATE ROOM SET Availability = 'NO' WHERE = " + AssignRoom.id;
+			Statement statement = this.connection.createStatement();
+			statement.executeUpdate(query);
+		}catch(SQLException e) {
+			throw new Exception(e.getMessage());
+		}
+	}
+	
+	//reading the details of the booking
+	public ArrayList<AllModel> viewData() throws Exception{
+		try {
+			ArrayList<AllModel> models = new ArrayList<AllModel>();
+			String query = "SELECT * FROM individualcustomer i , booking b, room r WHERE i.icustomer_id = b.icustomer_id AND r.room_No = b.room_id";
+			Statement statement = this.connection.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			while(rs.next()) {
+				AllModel am = new AllModel();
+				am.setBookingId(rs.getInt("Booking_ID"));
+				am.setArrivalDate(rs.getString("Arrival_Date"));
+				am.setBookingStatus(rs.getString("Booking_Status"));
+				am.setRoomType(rs.getNString("Room_Type"));
+				am.setIcustomerId(rs.getInt("Icustomer_id"));
+				am.setCcustomerId(rs.getInt("Ccustomer_id"));
+				am.setName(fullName);
+				am.setCompname(rs.getString("Company_Name"));
+				am.setStaffId(rs.getInt("Staff_Id"));
+				
+			}
+
+			private String name;
+			private String compname;
+			private String staffId;
+			
+			return models;
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+}

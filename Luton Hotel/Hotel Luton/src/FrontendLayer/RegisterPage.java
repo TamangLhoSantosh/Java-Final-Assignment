@@ -243,7 +243,7 @@ public class RegisterPage extends JInternalFrame {
 			BLIndividualCust individualc = new BLIndividualCust();
 			
 			//validating entered data
-			individualc.validateIndividualCust(icus);
+			individualc.setIndividualCust(icus);
 			blLogin.registerValidation(log, conPass);
 			
 			//inserting the data entered to db

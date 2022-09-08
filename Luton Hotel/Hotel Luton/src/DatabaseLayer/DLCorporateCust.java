@@ -164,7 +164,7 @@ public class DLCorporateCust {
 			ArrayList<CorporateCustomer> ccs = new ArrayList<CorporateCustomer>();
 			
 			//query to select all data of corporate customer
-			String query = "SELECT * FROM corporatecustomer ORDER BY Registration_No";
+			String query = "SELECT * FROM corporatecustomer ORDER BY cCustomer_Id";
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			while(rs.next()) {
@@ -200,7 +200,7 @@ public class DLCorporateCust {
 					where = where + "AND " + keys[i] + " LIKE '%" + values[i] + "%' ";
 				}
 			}
-			String query ="SELECT * FROM corporatecustomer" + where + "ORDER BY Registration_No";
+			String query ="SELECT * FROM corporatecustomer" + where + "ORDER BY cCustomer_Id";
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			while(rs.next()) {

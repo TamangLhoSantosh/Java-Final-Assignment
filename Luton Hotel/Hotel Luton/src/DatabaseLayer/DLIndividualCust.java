@@ -53,12 +53,11 @@ public class DLIndividualCust {
 	//method to insert data into 
 	public IndividualCustomer register() throws Exception {
 		try {
-			
 			//preparing to insert the data entered
 			String generatedColumns[] = {"id"};
 			
 			//creating query to insert data
-			String query = "INSERT INTO individualcustomer(First_Name, Last_Name, DOB, Contact_No, Address, Postal_Code, Credit_Card_No, Expiry_Date, User_ID) VALUES(?,?,?,?,?,?,?,?,?)";
+			String query = "INSERT INTO individualcustomer(First_Name, Last_Name, DOB, Contact_No, Address, Postal_Code, Credit_Card_No, Expiry_Date, User_ID) VALUES(?,?,DATE(?),?,?,?,?,?,?)";
 			PreparedStatement statement =this.connection.prepareStatement(query, generatedColumns);
 			statement.setString(1,this.iCust.getfName());
 			statement.setString(2,this.iCust.getlName());
@@ -137,7 +136,7 @@ public class DLIndividualCust {
 			ArrayList<IndividualCustomer> ics = new ArrayList<IndividualCustomer>();
 			
 			//query to select all data of individual customer
-			String query = "SELECT * FROM individualcustomer ORDER BY first_Name";
+			String query = "SELECT * FROM individualcustomer ORDER BY iCustomer_ID";
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			while(rs.next()) {
@@ -172,7 +171,7 @@ public class DLIndividualCust {
 					where = where + "AND " + keys[i] + " LIKE '%" + values[i] + "%' ";
 				}
 			}
-			String query ="SELECT * FROM individualcustomer " + where + " ORDER BY first_Name";
+			String query ="SELECT * FROM individualcustomer " + where + " ORDER BY iCustomer_ID";
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			while(rs.next()) {

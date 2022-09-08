@@ -263,7 +263,7 @@ public class TwinPage extends JFrame {
 		
 		JLabel rate = new JLabel();
 		rate.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		rate.setText("USD 50 Per Night");
+		rate.setText("USD 300 Per Night");
 		panel9.add(rate);
 		
 

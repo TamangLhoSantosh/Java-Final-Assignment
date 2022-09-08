@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="javax.swing.JDesktopPane"/>
     <fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
     <fullyQualifiedTypeName name="DatabaseLayer.DLLogin"/>
     <fullyQualifiedTypeName name="FrontendLayer.CustomerHome"/>
@@ -8,11 +7,9 @@
     <fullyQualifiedTypeName name="BusinessLayer.BLIndividualCust"/>
     <fullyQualifiedTypeName name="FrontendLayer.RegisterPage"/>
     <fullyQualifiedTypeName name="Models.Login"/>
-    <fullyQualifiedTypeName name="java.awt.Color"/>
     <fullyQualifiedTypeName name="java.awt.Image"/>
     <fullyQualifiedTypeName name="FrontendLayer.Profile"/>
     <fullyQualifiedTypeName name="FrontendLayer.Gallery"/>
-    <fullyQualifiedTypeName name="Models.CorporateCustomer"/>
     <fullyQualifiedTypeName name="Models.Staff"/>
     <fullyQualifiedTypeName name="javax.swing.JTextPane"/>
     <fullyQualifiedTypeName name="javax.swing.JCheckBox"/>
@@ -30,19 +27,23 @@
     <fullyQualifiedTypeName name="java.awt.Font"/>
     <fullyQualifiedTypeName name="java.awt.FlowLayout"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
-    <fullyQualifiedTypeName name="javax.swing.JTable"/>
-    <fullyQualifiedTypeName name="javax.swing.JScrollPane"/>
-    <fullyQualifiedTypeName name="javax.swing.table.DefaultTableModel"/>
     <fullyQualifiedTypeName name="BusinessLayer.BLCorporateCust"/>
     <fullyQualifiedTypeName name="javax.swing.JTextField"/>
     <fullyQualifiedTypeName name="javax.swing.JLabel"/>
     <fullyQualifiedTypeName name="DatabaseLayer.DLRoom"/>
     <fullyQualifiedTypeName name="Models.Booking"/>
-    <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
-    <fullyQualifiedTypeName name="BusinessLayer.BLRoom"/>
-    <fullyQualifiedTypeName name="Models.Room"/>
     <fullyQualifiedTypeName name="BusinessLayer.BLBooking"/>
-    <fullyQualifiedTypeName name="FrontendLayer.AssignRoom"/>
     <fullyQualifiedTypeName name="FrontendLayer.StaffHome"/>
     <fullyQualifiedTypeName name="javax.swing.JButton"/>
+    <fullyQualifiedTypeName name="javax.swing.JScrollPane"/>
+    <fullyQualifiedTypeName name="BusinessLayer.BLRoom"/>
+    <fullyQualifiedTypeName name="Models.Room"/>
+    <fullyQualifiedTypeName name="FrontendLayer.AssignRoom"/>
+    <fullyQualifiedTypeName name="Models.AllModel"/>
+    <fullyQualifiedTypeName name="javax.swing.JDesktopPane"/>
+    <fullyQualifiedTypeName name="java.awt.Color"/>
+    <fullyQualifiedTypeName name="javax.swing.JTable"/>
+    <fullyQualifiedTypeName name="javax.swing.table.DefaultTableModel"/>
+    <fullyQualifiedTypeName name="Models.CorporateCustomer"/>
+    <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
 </qualifiedTypeNameHistroy>

@@ -41,6 +41,9 @@ public class BLLogin {
 		if(log.getPassword() == null || log.getPassword().length()==0){
 			throw new InputException("Password cannot be empty.");
 		}
+//		if(!(log.getEmail().matches("^(.+)@(\\\\S+)$"))){
+//			throw new InputException("Enter valid email");
+//		}
 		return true;
 	}
 	

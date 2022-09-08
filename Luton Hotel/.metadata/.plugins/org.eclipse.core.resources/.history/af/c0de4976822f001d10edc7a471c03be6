@@ -1,0 +1,16 @@
+package Models;
+
+public class AllModel {
+	private int bookingId;
+	private String arrivalDate;
+	private String departureDate;
+	private int roomNo;
+	private String roomType;
+	private String bookingStatus;
+	private int icustomerId;
+	private int ccustomerId;
+	private String name;
+	private String compname;
+	private int staffId;
+	
+}

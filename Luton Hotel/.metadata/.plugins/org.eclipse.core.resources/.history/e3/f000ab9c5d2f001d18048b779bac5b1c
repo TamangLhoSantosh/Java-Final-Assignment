@@ -1,0 +1,128 @@
+package FrontendLayer;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.util.ArrayList;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import BusinessLayer.BLRoom;
+import Models.AllModel;
+
+public class CustomerBooking extends JFrame {
+
+	private static final long serialVersionUID = -6036925219849591897L;
+	private JPanel contentPane;
+	private JTable table;
+	private DefaultTableModel model;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					CustomerBooking frame = new CustomerBooking();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public CustomerBooking() {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(300,200,800,500);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		
+		JPanel center = new JPanel();
+		contentPane.add(center);
+		
+		JPanel box = new JPanel();
+		center.add(box);
+		table = new JTable();
+		JScrollPane forTable = new JScrollPane(table);
+		box.add(forTable);
+		table.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+	}
+
+	//creating table identifier
+	public void viewTable() {
+		if(StaffHome.ccid == 0) {
+
+			model = new DefaultTableModel();
+			Object[] colsName = new Object[7];
+			colsName[0] = "Booking Id";
+			colsName[1] = "Customer Id";
+			colsName[2] = "Customer Name";
+			colsName[3] = "Room No";
+			colsName[4] = "Room Type";
+			colsName[5] = "Arrival Date";
+			colsName[6] = "Departure Date";
+			
+
+			model.setColumnIdentifiers(colsName);
+			table.setModel(model);
+			
+			viewData();
+
+		}
+		else {
+
+			model = new DefaultTableModel();
+			Object[] colsName = new Object[7];
+			colsName[0] = "Booking Id";
+			colsName[1] = "Customer Id";
+			colsName[2] = "Company Name";
+			colsName[3] = "Room No";
+			colsName[4] = "Room Type";
+			colsName[5] = "Arrival Date";
+			colsName[6] = "Departure Date";
+			
+
+			model.setColumnIdentifiers(colsName);
+			table.setModel(model);
+			
+			viewData();
+
+
+		}
+	}
+	public void viewData() {
+		try {
+			
+		BLRoom room = new BLRoom();
+		ArrayList<AllModel> roomsdetails = room.viewData();
+		model.setRowCount(0);
+		for(AllModel am : roomsdetails) {
+			String[] row = {
+					Integer.toString(am.getBookingId()),
+					am.getRoomType(),
+					am.getArrivalDate(),
+					am.getDepartureDate(),
+					am.getBookingStatus()		
+				};
+				model.addRow(row);
+			}
+		
+		}catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, ex.getMessage());
+		}
+
+	}
+}

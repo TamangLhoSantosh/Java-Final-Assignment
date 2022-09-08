@@ -182,10 +182,10 @@ public class DLBooking {
 		public void assign() throws Exception{
 			//making query
 			try {
-				String query = "UPDATE Booking SET Room_Id = " + AssignRoom.id + " Booking_Verified = 'YES' WHERE Booking_Id = " + StaffHome.id;
+				String query = "UPDATE Booking SET Room_Id = " + AssignRoom.id + ", Booking_Verified = 'YES', Booking_Status = 'BOOKED', Staff_Id = " + DLLogin.sfid + " WHERE Booking_Id = " + StaffHome.bid;
 
 				Statement statement = this.connection.createStatement();
-				statement.executeQuery(query);
+				statement.executeUpdate(query);
 			}catch(Exception ex) {
 				throw ex;
 			}
@@ -197,10 +197,9 @@ public class DLBooking {
 			ArrayList<Booking> bb = new ArrayList<Booking>();
 			try {
 				if(DLLogin.icid == 0) {
-
-
+					
 					//making query
-					String query = "SELECT * FROM BOOKING b JOIN CorporateCustomer i ON b.cCustomer_ID = " + DLLogin.ccid + " ORDER BY Arrival_Date";
+					String query = "SELECT * FROM BOOKING b JOIN CORPORATECUSTOMER c ON b.CCustomer_ID = c.CCustomer_ID AND c..CCustomer_ID = " + DLLogin.ccid + " ORDER BY Arrival_Date";
 					Statement statement = this.connection.createStatement();
 					ResultSet rs = statement.executeQuery(query);
 					while(rs.next()) {
@@ -217,11 +216,12 @@ public class DLBooking {
 						
 						//adding data to the arraylist
 						bb.add(book);
+										}
 					}
-
-					}
-				else {//making query
-					String query = "SELECT * FROM BOOKING b JOIN INDIVIDUALCUSTOMER i ON b.iCustomer_ID = " + DLLogin.icid + " ORDER BY Arrival_Date";
+				else {
+					
+					//making query
+					String query = "SELECT * FROM BOOKING b, INDIVIDUALCUSTOMER i WHERE b.iCustomer_ID = i.iCustomer_Id AND i.icustomer_id = " + DLLogin.icid + " ORDER BY Arrival_Date";
 					Statement statement = this.connection.createStatement();
 					ResultSet rs = statement.executeQuery(query);
 					while(rs.next()) {

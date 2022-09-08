@@ -1,4 +1,5 @@
 package BusinessLayer;
+import Models.AllModel;
 import Models.Room;
 
 import java.util.ArrayList;
@@ -16,16 +17,7 @@ public class BLRoom {
 		return room;
 	}
 	
-	public Room update() throws Exception {
-		// This function saves the user detail to database and returns the user object after saving
-		try {
-			DLRoom dlRoom = new DLRoom(this.room);
-			return dlRoom.update();
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-	
+	//connecting to databasae
 	public ArrayList<Room> viewRoom() throws Exception{
 		try {
 			DLRoom dlr = new DLRoom();
@@ -34,7 +26,8 @@ public class BLRoom {
 			throw e;
 		}
 	}
-	
+
+	//connecting to databasae
 	public ArrayList<Room> viewAllRoom() throws Exception {
 		try {
 			DLRoom dlRoom = new DLRoom();
@@ -44,11 +37,32 @@ public class BLRoom {
 		}
 	}
 	
-	public ArrayList<Room> searchRoom(String[] keys, String[] values) throws Exception{
+	//connecting to databasae
+	public void assign() throws Exception {
 		try {
-			DLRoom dlRoom = new DLRoom();
-			return dlRoom.searchUser(keys, values);
+			DLRoom dlr = new DLRoom();
+			dlr.assign();
 		}catch(Exception e) {
+			throw e;
+		}
+	}
+
+	//connecting to database
+	public ArrayList<AllModel> viewiData() throws Exception{
+		try {
+			DLRoom dlr = new DLRoom();
+			return dlr.viewiData();
+		}catch (Exception e) {
+			throw e;
+		}
+	}
+
+	//connecting to database
+	public ArrayList<AllModel> viewcData() throws Exception{
+		try {
+			DLRoom dlr = new DLRoom();
+			return dlr.viewcData();
+		}catch (Exception e) {
 			throw e;
 		}
 	}

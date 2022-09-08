@@ -14,11 +14,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import BusinessLayer.BLBooking;
-import BusinessLayer.BLCorporateCust;
 import BusinessLayer.BLIndividualCust;
 import BusinessLayer.BLRoom;
 import Models.Booking;
-import Models.CorporateCustomer;
 import Models.IndividualCustomer;
 import Models.Room;
 
@@ -36,18 +34,16 @@ public class StaffHome extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private DefaultTableModel model;
+	private JScrollPane forTable;
 	private JTextField fname;
 	private JTextField lname;
 	private JTextField address;
-	private JTextField regno;
-	private JTextField compname;
+	public static  JTextField regno;
+	public static JTextField compname;
 	private ArrayList<IndividualCustomer> icust;
-	private ArrayList<CorporateCustomer> ccust;
 	public static String rType;
-	public static int id;
-	
-	
-	
+	public static int bid;
+	public static int icid;
 
 	/**
 	 * Launch the application.
@@ -77,6 +73,30 @@ public class StaffHome extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
+		JPanel north = new JPanel();
+		contentPane.add(north, BorderLayout.NORTH);
+		north.setLayout(new BorderLayout(0, 0));
+		
+		JLabel logo = new JLabel("");
+		logo.setIcon(new ImageIcon("/Users/xic/Desktop/Java Final Assignment/Luton Hotel/Hotel Luton/bin/logo.jpeg"));
+		north.add(logo, BorderLayout.WEST);
+		
+		JButton logout = new JButton("Log Out");
+		logout.setFocusable(false);
+		logout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(JOptionPane.showConfirmDialog(logout, "Are You Sure You Want To Log Out???", "LOGOUT",
+						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION)
+				{
+					Main window = new Main();
+					window.setVisible(true);
+					dispose();
+					
+				}
+			}
+		});
+		north.add(logout, BorderLayout.EAST);
+	
 		JPanel panel = new JPanel();
 		contentPane.add(panel);
 		
@@ -162,7 +182,17 @@ public class StaffHome extends JFrame {
 		JButton search1 = new JButton("Search Corporate");
 		search1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				searchCorporateCustomer();
+
+				//clearing the textfield
+				fname.setText("");
+				lname.setText("");
+				address.setText("");
+				regno.setText("");
+				compname.setText("");
+
+				Corporate c = new Corporate();
+				c.searchCorporateCustomer();
+				c.setVisible(true);
 			}
 		});
 		search1.setFocusable(false);
@@ -170,10 +200,11 @@ public class StaffHome extends JFrame {
 		searchCC.add(search1);
 
 		table = new JTable();
-		JScrollPane forTable = new JScrollPane(table);
+		forTable = new JScrollPane(table);
 		box.add(forTable);
 		table.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		
+		model = new DefaultTableModel();
+
 		JPanel btn = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) btn.getLayout();
 		flowLayout.setHgap(100);
@@ -193,12 +224,13 @@ public class StaffHome extends JFrame {
 		JButton showCCbtn = new JButton("Corporate Customers");
 		showCCbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				showCC();
+				Corporate c = new Corporate();
+				c.viewAllCC();
+				c.setVisible(true);
 			}
 		});
 		showCCbtn.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		showCCbtn.setFocusable(false);
-		model = new DefaultTableModel();
 		btn.add(showCCbtn);
 		
 		JButton room = new JButton("Rooms");
@@ -245,35 +277,25 @@ public class StaffHome extends JFrame {
 		allBooking.setFocusable(false);
 		booking.add(allBooking);
 		
-		JPanel north = new JPanel();
-		contentPane.add(north, BorderLayout.NORTH);
-		north.setLayout(new BorderLayout(0, 0));
+		JPanel showCustomerBooking = new JPanel();
+		box.add(showCustomerBooking);
 		
-		JLabel logo = new JLabel("");
-		logo.setIcon(new ImageIcon("/Users/xic/Desktop/Java Final Assignment/Luton Hotel/Hotel Luton/bin/logo.jpeg"));
-		north.add(logo, BorderLayout.WEST);
-		
-		JButton logout = new JButton("Log Out");
-		logout.setFocusable(false);
-		logout.addActionListener(new ActionListener() {
+		JButton viewBooking = new JButton("View Booking");
+		viewBooking.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		viewBooking.setFocusable(false);
+		viewBooking.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(JOptionPane.showConfirmDialog(logout, "Are You Sure You Want To Log Out???", "LOGOUT",
-						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION)
-				{
-					Main window = new Main();
-					window.setVisible(true);
-					dispose();
-					
-				}
+				viewBookingOfCust();
 			}
 		});
-		north.add(logout, BorderLayout.EAST);
+		showCustomerBooking.add(viewBooking);
 		
 		showPendingBooking();
 	}
-
+	
+	//table identifier
 	public void showPendingBooking() {
-		
+
 		Object[] colsName = new Object[8];
 		colsName[0] = "Booking Id";
 		colsName[1] = "Booking Date";
@@ -291,6 +313,7 @@ public class StaffHome extends JFrame {
 
 	}
 
+	//pending booking data
 	public void viewPendingBooking() {
 
 		try {
@@ -315,14 +338,16 @@ public class StaffHome extends JFrame {
 		}
 	}
 
+	//table identifier
 	public void showIC() {
-		
-		Object[] colsName = new Object[5];
-		colsName[0] = "First Name";
-		colsName[1] = "Last Name";
-		colsName[2] = "Date of Birth";
-		colsName[3] = "Contact No";
-		colsName[4] = "Address";
+
+		Object[] colsName = new Object[6];
+		colsName[0] = "Customer Id";
+		colsName[1] = "First Name";
+		colsName[2] = "Last Name";
+		colsName[3] = "Date of Birth";
+		colsName[4] = "Contact No";
+		colsName[5] = "Address";
 		
 		model.setColumnIdentifiers(colsName);
 		table.setModel(model);
@@ -330,6 +355,7 @@ public class StaffHome extends JFrame {
 		viewAllIC();
 	}
 	
+	//show all individual customer
 	public void viewAllIC() {
 
 		try {
@@ -338,6 +364,7 @@ public class StaffHome extends JFrame {
 			model.setRowCount(0);
 			for(IndividualCustomer icustomer : individualc) {
 				String[] row = {
+						String.valueOf(icustomer.getCustomerId()),
 						icustomer.getfName(),
 						icustomer.getlName(),		
 						icustomer.getDateOfBirth(),
@@ -351,48 +378,10 @@ public class StaffHome extends JFrame {
 			JOptionPane.showMessageDialog(null, ex.getMessage());
 		}
 	}
-	
-	public void showCC() {
-		
-		Object[] colsName = new Object[6];
-		colsName[0] = "Registration No";
-		colsName[1] = "Company Name";
-		colsName[2] = "Contact No";
-		colsName[3] = "Address";
-		colsName[4] = "Discount to be Provided";
-		colsName[5] = "Discount Year";
-		
-		model.setColumnIdentifiers(colsName);
-		table.setModel(model);
-		
-		viewAllCC();
-	}
 
-	public void viewAllCC(){
-
-		try {
-			BLCorporateCust cc = new BLCorporateCust();
-			ArrayList<CorporateCustomer> corporatec = cc.viewAllCC();
-			model.setRowCount(0);
-			for(CorporateCustomer ccustomer : corporatec) {
-				String[] row = {
-						Integer.toString(ccustomer.getRegistrationNo()),
-						ccustomer.getCompanyName(),
-						ccustomer.getContact(),
-						ccustomer.getAddress(),
-						Integer.toString(ccustomer.getDiscountDiscussed()),
-						ccustomer.getDiscountYear()
-				};
-				model.addRow(row);
-			}
-			
-		}catch (Exception ex) {
-			JOptionPane.showMessageDialog(null, ex.getMessage());
-		}
-
-	}
-
+	//table identifier
 	public void showRoom() {
+	
 		Object [] colsName = new Object[5];
 		colsName[0] = "Room No";
 		colsName[1] = "Floor No";
@@ -406,6 +395,7 @@ public class StaffHome extends JFrame {
 		viewAllRoom();
 	}
 	
+	//shows all room
 	public void viewAllRoom() {
 		try {
 			BLRoom blr = new BLRoom();
@@ -426,14 +416,16 @@ public class StaffHome extends JFrame {
 		}
 	}
 	
+	//search specified individual customer
 	public void searchIndividualCust() {
 
-		Object[] colsName = new Object[5];
-		colsName[0] = "First Name";
-		colsName[1] = "Last Name";
-		colsName[2] = "Date of Birth";
-		colsName[3] = "Contact No";
-		colsName[4] = "Address";
+		Object[] colsName = new Object[6];
+		colsName[0] = "Customer Id";
+		colsName[1] = "First Name";
+		colsName[2] = "Last Name";
+		colsName[3] = "Date of Birth";
+		colsName[4] = "Contact No";
+		colsName[5] = "Address";
 		
 		model.setColumnIdentifiers(colsName);
 		table.setModel(model);
@@ -503,12 +495,21 @@ public class StaffHome extends JFrame {
 		}catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e);
 		}
+
+		//clearing the textfield
+		fname.setText("");
+		lname.setText("");
+		address.setText("");
+		regno.setText("");
+		compname.setText("");
 	}
 	
+	//shows specified individual customer data
 	public void searchICTable() {
 		model.setRowCount(0);
 		for(IndividualCustomer ic : icust) {
 			String[] row = {
+					String.valueOf(ic.getCustomerId()),
 					ic.getfName(),
 					ic.getlName(),		
 					ic.getDateOfBirth(),
@@ -518,84 +519,42 @@ public class StaffHome extends JFrame {
 			model.addRow(row);
 		}
 	}
-
-	public void searchCorporateCustomer() {
-		Object[] colsName = new Object[6];
-		colsName[0] = "Registration No";
-		colsName[1] = "Company Name";
-		colsName[2] = "Contact No";
-		colsName[3] = "Address";
-		colsName[4] = "Discount to be Provided";
-		colsName[5] = "Discount Year";
-		
-		model.setColumnIdentifiers(colsName);
-		table.setModel(model);
-		
-		String[] keys, values;
-		BLCorporateCust blcc = new BLCorporateCust();
-		
-		try {
-			if(!(regno.getText().equals("") && compname.getText().equals(""))) {
-				keys = new String[2];
-				values = new String[2];
-				keys[0] = "Registration_No"; values[0] = regno.getText();
-				keys[1] = "Company_Name"; values[1] = compname.getText();
-				blcc.searchCorporateCust(keys, values);
-				searchCCTable();
-			}
-			else if(!(regno.getText().equals(""))) {
-				keys = new String[1];
-				values = new String[1];
-				keys[0] = "Registration_No"; values[0] = regno.getText();
-				blcc.searchCorporateCust(keys, values);
-				searchCCTable();
-			}
-			else if (!(compname.getText().equals(""))) {
-				keys = new String[1];
-				values = new String[1];
-				keys[1] = "Company_Name"; values[0] = compname.getText();
-				blcc.searchCorporateCust(keys, values);
-				searchCCTable(); 
-			}
-			else {
-				viewAllCC();
-			}
-		}catch(Exception e) {
-			JOptionPane.showMessageDialog(null, e);
-		}
-	}
 	
-	public void searchCCTable() {
-		model.setRowCount(0);
-		for(CorporateCustomer cc : ccust) {
-			String[] row = {
-					Integer.toString(cc.getRegistrationNo()),
-					cc.getCompanyName(),
-					cc.getContact(),
-					cc.getAddress(),
-					Integer.toString(cc.getDiscountDiscussed()),
-					cc.getDiscountYear()
-			};
-			model.addRow(row);
-		}		
-	}
-	
+	//making a booking verified
 	public void bookingVerified() {
 		int i = table.getSelectedRow();
 		if(i < 0) {
 			JOptionPane.showMessageDialog(null, "Select a row first");
 		}
 		else {
-			try {
-				BLBooking blb = new BLBooking();
-				blb.bookingVerfied();
-				showPendingBooking();
-			}catch(Exception ex) {
-				JOptionPane.showMessageDialog(null, ex);
+			String bookst = String.valueOf(model.getValueAt(i, 6));
+			if(bookst.equals("CANCEL")) {
+			JOptionPane.showMessageDialog(null, "Booking already canclled");
+			}
+			else if(bookst.equals("BOOKED")) {
+			JOptionPane.showMessageDialog(null, "Room already assigned");
+			}
+			else if(bookst.equals("ACTIVE")) {
+			JOptionPane.showMessageDialog(null, "Booking already actived");
+			}
+			else if(bookst.equals("CLOSED")){
+			JOptionPane.showMessageDialog(null, "Booking already closed");
+			}
+			else if(bookst.equals("PENDING")) {
+
+				try {
+					BLBooking blb = new BLBooking();
+					blb.bookingVerfied();
+					showPendingBooking();
+				}catch(Exception ex) {
+					JOptionPane.showMessageDialog(null, ex);
+				}
+			
 			}
 		}
 	}
 	
+	//table identifier
 	public void showAllBooking() {
 
 		Object[] colsName = new Object[8];
@@ -614,6 +573,7 @@ public class StaffHome extends JFrame {
 		viewAllBooking();
 	}
 	
+	//shows all booking data
 	public void viewAllBooking() {
 
 		try {
@@ -638,6 +598,7 @@ public class StaffHome extends JFrame {
 		}
 	}
 	
+	//asssigns a room 
 	public void assignRoom() {
 		int i = table.getSelectedRow();
 		if(i < 0) {
@@ -658,13 +619,28 @@ public class StaffHome extends JFrame {
 				JOptionPane.showMessageDialog(null, "Booking already closed");
 			}
 			else if(bookst.equals("PENDING")) {
-				id = Integer.parseInt(String.valueOf(model.getValueAt(i, 0)));
+				bid = Integer.parseInt(String.valueOf(model.getValueAt(i, 0)));
 				rType = String.valueOf(model.getValueAt(i, 2));
 				AssignRoom ar = new AssignRoom();
 				ar.setVisible(true);
 				showPendingBooking();
 			}
 
+		}
+	}
+	
+	//views customer's booking details
+	public void viewBookingOfCust() {	
+		icid = 0;
+		int i = table.getSelectedRow();
+		if(i < 0 ) {
+			JOptionPane.showMessageDialog(null, "Select a row first");
+		}
+		else{
+			icid = Integer.parseInt(String.valueOf(model.getValueAt(i, 0)));
+			CorporateB cb = new CorporateB();
+			cb.viewiTable();
+			cb.setVisible(true);
 		}
 	}
 }

@@ -23,6 +23,8 @@ import java.awt.FlowLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.Component;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AssignRoom extends JFrame {
 
@@ -53,7 +55,7 @@ public class AssignRoom extends JFrame {
 	 * Create the frame.
 	 */
 	public AssignRoom() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(400, 200, 600, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -98,7 +100,7 @@ public class AssignRoom extends JFrame {
 		table = new JTable();
 		JScrollPane forTable = new JScrollPane(table);
 		box.add(forTable);
-		
+		model = new DefaultTableModel();		
 		showRoom();
 
 		JPanel empty3 =new JPanel();
@@ -108,6 +110,11 @@ public class AssignRoom extends JFrame {
 		box.add(btn);
 		
 		assign = new JButton("Assign Room");
+		assign.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				assign();
+			}
+		});
 		assign.setAlignmentX(Component.CENTER_ALIGNMENT);
 		assign.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		assign.setFocusable(false);
@@ -115,14 +122,16 @@ public class AssignRoom extends JFrame {
 		
 	}
 	
+	//showing the required title
 	public void showRoom() {
 		model = new DefaultTableModel();
 		
-		Object[] colsName = new Object[4];
+		Object[] colsName = new Object[5];
 		colsName[0] = "Room No";
 		colsName[1] = "Room Type";
 		colsName[2] = "Floor No";
 		colsName[3] = "Rate";
+		colsName[4] = "Avalability";
 
 		
 		model.setColumnIdentifiers(colsName);
@@ -131,6 +140,7 @@ public class AssignRoom extends JFrame {
 		viewRoom();
 	}
 	
+	//showing only required room
 	public void viewRoom() {
 
 		try {
@@ -142,7 +152,8 @@ public class AssignRoom extends JFrame {
 						Integer.toString(rm.getRoomNo()),
 						rm.getRoomType(),
 						Integer.toString(rm.getRoomNo()),
-						Integer.toString(rm.getRoomNo())		
+						Integer.toString(rm.getRoomNo()),
+						rm.getAvailability()
 				};
 				model.addRow(row);
 			}
@@ -152,6 +163,8 @@ public class AssignRoom extends JFrame {
 		}
 	}
 	
+	
+	//assigning room to a booking
 	public void assign() {
 		int i = table.getSelectedRow();
 		try {
@@ -166,6 +179,10 @@ public class AssignRoom extends JFrame {
 					id = Integer.parseInt(String.valueOf(model.getValueAt(i, 0)));
 					BLBooking blb = new BLBooking();
 					blb.assign();
+					
+					BLRoom blr = new BLRoom();
+					blr.assign();
+					showRoom();
 				}
 				
 			}

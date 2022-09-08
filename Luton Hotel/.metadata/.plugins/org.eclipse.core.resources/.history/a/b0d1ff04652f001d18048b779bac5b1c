@@ -1,0 +1,77 @@
+package FrontendLayer;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class CorporateCustomer extends JFrame {
+
+	private static final long serialVersionUID = -915030940586408126L;
+	private JPanel contentPane;
+	private JTable table;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					CorporateCustomer frame = new CorporateCustomer();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public CorporateCustomer() {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(400, 200, 750, 600);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		
+		JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.CENTER);
+		
+		JPanel box = new JPanel();
+		contentPane.add(box, BorderLayout.NORTH);
+		box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
+		
+		JPanel center = new JPanel();
+		box.add(center);
+		
+		table = new JTable();
+		JScrollPane forTable = new JScrollPane(table);
+		center.add(forTable);
+		
+		JPanel btn = new JPanel();
+		box.add(btn);
+		
+		JButton viewBooking = new JButton("View Bookking");
+		viewBooking.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		viewBooking.setFocusable(false);
+		viewBooking.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		btn.add(viewBooking);
+	}
+
+}

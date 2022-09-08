@@ -1,14 +1,16 @@
 package DatabaseLayer;
 
+import Models.AllModel;
 import Models.Room;
 import Helper.DatabaseConnector;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import FrontendLayer.AssignRoom;
+import FrontendLayer.Corporate;
 import FrontendLayer.StaffHome;
 
 public class DLRoom {
@@ -45,25 +47,18 @@ public class DLRoom {
 		this.room = room;
 	}
 	
-	public Room update() throws Exception {
-		try {
-			// create the statement
-			String query = "UPDATE Room  SET name=? , address=? WHERE id=?";
-			PreparedStatement statement = this.connection.prepareStatement(query);
-			statement.setInt(1, this.room.getFloorNo());
-			statement.setInt(3, room.getRoomNo());
-			// execute the query
-			statement.executeUpdate();
-			return this.room;
-		}catch(Exception ex) {
-			throw ex;
-		}
-	}
 	
+	//show specific rooms
 	public ArrayList<Room> viewRoom() throws Exception{
+		
+		//reading data from other class
+		String roomt = StaffHome.rType;
 		try {
+			
 			ArrayList<Room> rooms = new ArrayList<Room>();
-			String query = "SELECT * FROM room WHERE ROOM_TYPE = " + StaffHome.rType + "ORDER BY Room_No";
+			
+			//creating query
+			String query = "SELECT * FROM room WHERE ROOM_TYPE = '" + roomt + "' ORDER BY Room_No";
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			while(rs.next()) {
@@ -72,6 +67,7 @@ public class DLRoom {
 				r.setFloorNo(rs.getInt("Floor_no"));
 				r.setRate(rs.getInt("Rate"));
 				r.setRoomType(rs.getString("Room_type"));
+				r.setAvailability(rs.getString("Availability"));
 				rooms.add(r);
 			}
 			return rooms;
@@ -81,6 +77,7 @@ public class DLRoom {
 		}
 	}
 	
+	//shows all room
 	public ArrayList<Room> viewAllRoom() throws Exception {
 		try {
 			ArrayList<Room> rooms = new ArrayList<Room>();
@@ -89,9 +86,11 @@ public class DLRoom {
 			ResultSet rs = statement.executeQuery(query);
 			while(rs.next()) {
 				Room r = new Room();
-				r.setRoomNo(rs.getInt("id"));
-				r.setFloorNo(rs.getInt("name"));
-				r.setRate(rs.getInt("address"));
+				r.setRoomNo(rs.getInt("Room_no"));
+				r.setFloorNo(rs.getInt("Floor_no"));
+				r.setRate(rs.getInt("Rate"));
+				r.setRoomType(rs.getString("Room_type"));
+				r.setAvailability(rs.getString("Availability"));
 				rooms.add(r);
 			}
 			return rooms;
@@ -101,32 +100,70 @@ public class DLRoom {
 		}
 	}
 	
-	public ArrayList<Room> searchUser(String[] keys, String[] values) throws Exception{
-		// SELECT * FROM user WHERE name LIKE '%Hari%' AND address LIKE '%PCPS%' ;
-		ArrayList<Room> rooms = new ArrayList<Room>();
+	//make the room unavailable
+	public void assign() throws Exception {
 		try {
-			int keyLength = keys.length;
-			String where = "";
-			for(int i=0; i<keyLength; ++i) {
-				if(i==0) {
-					where = where+" WHERE "+ keys[i]+" LIKE '%"+values[i]+"%' ";
-				}else {
-					where = where+" AND "+ keys[i]+" LIKE '%"+values[i]+"%' ";
-				}
-			}
-			String query = "SELECT * FROM Room"+where+" ORDER BY name";
+
+			//creating query 
+			String query = "UPDATE ROOM SET Availability = 'NO' WHERE = " + AssignRoom.id;
+			Statement statement = this.connection.createStatement();
+			statement.executeUpdate(query);
+		}catch(SQLException e) {
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	//reading the details of the booking
+	public ArrayList<AllModel> viewiData() throws Exception{
+		try {
+			ArrayList<AllModel> models = new ArrayList<AllModel>();
+			String query = "SELECT * FROM individualcustomer i , booking b, room r WHERE r.room_No = b.room_id AND i.icustomer_id = b.icustomer_id AND i.icustomer_id = " + StaffHome.icid + " ORDER BY b.booking_id";
 			Statement statement = this.connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			while(rs.next()) {
-				Room r = new Room();
-				r.setRoomNo(rs.getInt("id"));
-				r.setFloorNo(rs.getInt("name"));
-				r.setRate(rs.getInt("address"));
-				rooms.add(r);
-			}
-		} catch (SQLException e) {
-			throw new Exception(e.getMessage());
+				AllModel am = new AllModel();
+				am.setBookingId(rs.getInt("Booking_ID"));
+				am.setRoomNo(rs.getInt("Room_no"));
+				am.setArrivalDate(rs.getString("Arrival_Date"));
+				am.setDepartureDate(rs.getString("Departure_Date"));
+				am.setBookingStatus(rs.getString("Booking_Status"));
+				am.setRoomType(rs.getNString("Room_Type"));
+				am.setIcustomerId(rs.getInt("Icustomer_id"));
+				String fullName = rs.getString("First_Name") + " " + rs.getString("Last_Name");
+				am.setName(fullName);
+				am.setStaffId(rs.getInt("Staff_Id"));
+				models.add(am);
+			}			
+			return models;
+		}catch(Exception e) {
+			throw e;
 		}
-		return rooms;		
+	}
+	
+
+	//reading the details of the booking
+	public ArrayList<AllModel> viewcData() throws Exception{
+		try {
+			ArrayList<AllModel> models = new ArrayList<AllModel>();
+			String query = "SELECT * FROM corporatecustomer c , booking b, room r WHERE r.room_No = b.room_id AND b.ccustomer_id = c.ccustomer_id AND  c.ccustomer_id = " +  Corporate.ccid + " ORDER BY b.booking_id";
+			Statement statement = this.connection.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			while(rs.next()) {
+				AllModel am = new AllModel();
+				am.setBookingId(rs.getInt("Booking_ID"));
+				am.setRoomNo(rs.getInt("Room_no"));
+				am.setArrivalDate(rs.getString("Arrival_Date"));
+				am.setDepartureDate(rs.getString("Departure_Date"));
+				am.setBookingStatus(rs.getString("Booking_Status"));
+				am.setRoomType(rs.getNString("Room_Type"));
+				am.setCcustomerId(rs.getInt("Ccustomer_id"));
+				am.setCompname(rs.getString("Company_Name"));
+				am.setStaffId(rs.getInt("Staff_Id"));
+				models.add(am);
+			}			
+			return models;
+		}catch(Exception e) {
+			throw e;
+		}
 	}
 }

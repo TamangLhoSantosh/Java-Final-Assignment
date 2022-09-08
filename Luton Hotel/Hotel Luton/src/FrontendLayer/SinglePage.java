@@ -262,7 +262,7 @@ public class SinglePage extends JFrame {
 		
 		JLabel rate = new JLabel();
 		rate.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		rate.setText("USD 30 Per Night");
+		rate.setText("USD 150 Per Night");
 		panel9.add(rate);
 		
 

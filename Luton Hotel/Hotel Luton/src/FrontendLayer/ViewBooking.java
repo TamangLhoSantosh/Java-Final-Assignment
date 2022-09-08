@@ -119,6 +119,7 @@ public class ViewBooking extends JFrame {
 		
 	}
 	
+	//column identifier
 	public void showTable() {
 
 		model = new DefaultTableModel();
@@ -140,6 +141,7 @@ public class ViewBooking extends JFrame {
 		
 	}
 	
+	//shows customer'a\s booking
 	public void viewBooking() {
 		try {
 			BLBooking book = new BLBooking();
@@ -163,6 +165,7 @@ public class ViewBooking extends JFrame {
 		}
 	}
 	
+	//updates the booking
 	public void update() {
 		int i = table.getSelectedRow();
 		if(i < 0) {
@@ -185,6 +188,7 @@ public class ViewBooking extends JFrame {
 		viewBooking();
 	}
 	
+	//cancels the booking
 	public void cancel() {
 		int i = table.getSelectedRow();
 		if(i < 0) {
@@ -195,7 +199,7 @@ public class ViewBooking extends JFrame {
 			if(same.equals("CANCEL")) {
 				JOptionPane.showMessageDialog(null, "Already cancelled");
 			}
-			else {
+			else if(same.equals("PENDING")) {
 				id = Integer.parseInt(model.getValueAt(i, 0).toString());
 				try {
 					BLBooking blb= new BLBooking();
